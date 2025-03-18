@@ -1,4 +1,5 @@
 import {
+  randomString,
   createAccessTokenExpiredAt,
   createRefreshTokenExpiredAt,
 } from "~/utils/demo";
@@ -19,9 +20,9 @@ export default defineOAuthGoogleEventHandler({
         email: user.email,
       },
       token: {
-        accessToken: "abc",
+        accessToken: randomString(128),
         accessTokenExpiredAt: createAccessTokenExpiredAt(), // test: 1min
-        refreshToken: "def",
+        refreshToken: randomString(128),
         refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
       },
       loggedInAt: Date.now(),

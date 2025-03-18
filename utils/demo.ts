@@ -1,3 +1,7 @@
+export function randomString(len: number) {
+  return [...Array(len)].map(() => Math.random().toString(36)[2]).join("");
+}
+
 export function createAccessTokenExpiredAt() {
   // 30秒
   // return Date.now() + 30 * 1000;

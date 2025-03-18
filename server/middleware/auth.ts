@@ -1,4 +1,5 @@
 import {
+  randomString,
   createAccessTokenExpiredAt,
   createRefreshTokenExpiredAt,
 } from "~/utils/demo";
@@ -15,12 +16,14 @@ export default defineEventHandler(async (event) => {
     ) {
       await clearUserSession(event);
     } else if (session.token && isExpired(session.token.accessTokenExpiredAt)) {
+      // 交換新的token
+
       await setUserSession(event, {
         ...session,
         token: {
-          accessToken: "eee",
+          accessToken: randomString(128),
           accessTokenExpiredAt: createAccessTokenExpiredAt(),
-          refreshToken: "fff",
+          refreshToken: randomString(128),
           refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
         },
       });

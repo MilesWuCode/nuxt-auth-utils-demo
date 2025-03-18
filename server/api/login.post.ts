@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  randomString,
   createAccessTokenExpiredAt,
   createRefreshTokenExpiredAt,
 } from "~/utils/demo";
@@ -33,9 +34,9 @@ export default defineEventHandler(async (event) => {
       email: email,
     },
     token: {
-      accessToken: "aaa",
+      accessToken: randomString(128),
       accessTokenExpiredAt: createAccessTokenExpiredAt(),
-      refreshToken: "bbb",
+      refreshToken: randomString(128),
       refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
     },
     loggedInAt: Date.now(),
