@@ -20,9 +20,9 @@ export default defineOAuthGoogleEventHandler({
         email: user.email,
       },
       token: {
-        accessToken: randomString(128),
+        accessToken: randomString(),
         accessTokenExpiredAt: createAccessTokenExpiredAt(), // test: 1min
-        refreshToken: randomString(128),
+        refreshToken: randomString(),
         refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
       },
       loggedInAt: Date.now(),

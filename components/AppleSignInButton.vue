@@ -52,8 +52,8 @@ onLoaded(() => {
   show.value = true;
 });
 
-function randomString(num: number) {
-  return [...Array(num)].map(() => Math.random().toString(36)[2]).join("");
+function randomString(len: number = 128) {
+  return [...Array(len)].map(() => Math.random().toString(36)[2]).join("");
 }
 
 const onClick = async () => {

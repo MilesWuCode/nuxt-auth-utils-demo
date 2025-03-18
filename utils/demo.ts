@@ -1,4 +1,4 @@
-export function randomString(len: number) {
+export function randomString(len: number = 128) {
   return [...Array(len)].map(() => Math.random().toString(36)[2]).join("");
 }
 

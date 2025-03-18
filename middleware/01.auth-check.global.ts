@@ -1,4 +1,5 @@
 import {
+  randomString,
   createAccessTokenExpiredAt,
   createRefreshTokenExpiredAt,
 } from "~/utils/demo";
@@ -35,9 +36,9 @@ export default defineNuxtRouteMiddleware(async () => {
     isExpired(session.value.token.accessTokenExpiredAt)
   ) {
     // 更換token
-    session.value.token.accessToken = "ccc";
+    session.value.token.accessToken = randomString();
     session.value.token.accessTokenExpiredAt = createAccessTokenExpiredAt();
-    session.value.token.refreshToken = "ddd";
+    session.value.token.refreshToken = randomString();
     session.value.token.refreshTokenExpiredAt = createRefreshTokenExpiredAt();
   }
 });

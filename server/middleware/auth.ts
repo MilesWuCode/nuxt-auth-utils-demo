@@ -21,9 +21,9 @@ export default defineEventHandler(async (event) => {
       await setUserSession(event, {
         ...session,
         token: {
-          accessToken: randomString(128),
+          accessToken: randomString(),
           accessTokenExpiredAt: createAccessTokenExpiredAt(),
-          refreshToken: randomString(128),
+          refreshToken: randomString(),
           refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
         },
       });
