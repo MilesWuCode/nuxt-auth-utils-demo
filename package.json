@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/eslint": "^1.2.0",
     "@nuxt/scripts": "^0.11.2",
+    "@types/node": "^22.13.10",
     "eslint": "^9.22.0",
     "nuxt": "^3.16.0",
     "nuxt-auth-utils": "^0.5.16",

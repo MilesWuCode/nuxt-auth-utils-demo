@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     session: {
-      password: process.env.NUXT_SESSION_PASSWORD || "",
+      password: process.env.NUXT_SESSION_PASSWORD ?? "",
       maxAge: 60 * 60 * 24 * 7, // 1 week
     },
     oauth: {
