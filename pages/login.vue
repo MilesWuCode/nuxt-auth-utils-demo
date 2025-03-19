@@ -10,6 +10,10 @@ const redirectedFrom =
   route.query.redirectedFrom?.toString() ||
   "/";
 
+// cookie存返回頁路徑
+const redirectedFromCookie = useCookie("redirectedFrom", { maxAge: 3600 });
+redirectedFromCookie.value = redirectedFrom;
+
 const { fetch } = useUserSession();
 
 const email = ref("miles@email.com");

@@ -1,3 +1,4 @@
+import { getCookie } from "h3";
 import {
   randomString,
   createAccessTokenExpiredAt,
@@ -12,6 +13,9 @@ export default defineOAuthGoogleEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     // console.log(user, tokens);
+
+    // cookie取返回頁路徑
+    const redirectedFrom = getCookie(event, "redirectedFrom") ?? "/";
 
     await setUserSession(event, {
       user: {
@@ -28,7 +32,7 @@ export default defineOAuthGoogleEventHandler({
       loggedInAt: Date.now(),
     });
 
-    return sendRedirect(event, "/");
+    return sendRedirect(event, redirectedFrom);
   },
   // Optional, will return a json error and 401 status code by default
   onError(event, error) {
