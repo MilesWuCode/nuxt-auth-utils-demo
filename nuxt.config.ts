@@ -16,14 +16,13 @@ export default defineNuxtConfig({
         redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL,
       },
       apple: {
+        teamId: process.env.NUXT_OAUTH_APPLE_TEAM_ID,
+        keyId: process.env.NUXT_OAUTH_APPLE_KEY_ID,
+        privateKey: process.env.NUXT_OAUTH_APPLE_PRIVATE_KEY,
         clientId: process.env.NUXT_OAUTH_APPLE_CLIENT_ID,
-        clientSecret: process.env.NUXT_OAUTH_APPLE_CLIENT_SECRET,
+        // clientSecret: process.env.NUXT_OAUTH_APPLE_CLIENT_SECRET,
         redirectURL: process.env.NUXT_OAUTH_APPLE_REDIRECT_URL,
       },
-    },
-    public: {
-      appleClientId: process.env.NUXT_PUBLIC_APPLE_CLIENT_ID,
-      appleRedirectUrl: process.env.NUXT_PUBLIC_APPLE_REDIRECT_URL,
     },
   },
 

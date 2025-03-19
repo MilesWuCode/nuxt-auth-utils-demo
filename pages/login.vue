@@ -42,26 +42,44 @@ const onClick = async () => {
 
 <template>
   <div>
-    Page: login
+    <h3>Page: login</h3>
 
-    <br />
+    <hr />
 
-    <a href="/auth/google">Google</a>
+    <fieldset class="login">
+      <legend>Login:</legend>
+      <a href="/auth/apple">Apple</a>
+      <a href="/auth/google">Google</a>
+    </fieldset>
 
-    <AppleSignInButton :use-popup="false" :redirected-from="redirectedFrom"
-      >Apple SingIn
-    </AppleSignInButton>
-
-    <AppleSignInButton :use-popup="true" :redirected-from="redirectedFrom"
-      >Apple SingIn with Popup
-    </AppleSignInButton>
-
-    <br />
-
-    <div>
-      Email:<input v-model="email" type="text" name="email" /><br />
-      Password:<input v-model="password" type="password" name="password" />
+    <fieldset class="form">
+      <legend>Form:</legend>
+      <div>
+        <span>Email</span>
+        <input v-model="email" type="text" name="email" />
+      </div>
+      <div>
+        <span>Password</span>
+        <input v-model="password" type="password" name="password" />
+      </div>
       <button type="button" @click="onClick">Login</button>
-    </div>
+    </fieldset>
   </div>
 </template>
+
+<style lang="css" scoped>
+.login {
+  width: 200px;
+  a {
+    display: block;
+  }
+}
+
+.form {
+  width: fit-content;
+  span {
+    display: inline-block;
+    width: 100px;
+  }
+}
+</style>
