@@ -49,6 +49,7 @@ const onClick = async () => {
     <fieldset class="login">
       <legend>Login:</legend>
       <a href="/auth/apple">Apple</a>
+      <a href="/auth/facebook">Facebook</a>
       <a href="/auth/google">Google</a>
     </fieldset>
 

@@ -10,11 +10,6 @@ export default defineNuxtConfig({
       maxAge: 60 * 60 * 24 * 7, // 1 week
     },
     oauth: {
-      google: {
-        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
-        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
-        redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL,
-      },
       apple: {
         teamId: process.env.NUXT_OAUTH_APPLE_TEAM_ID,
         keyId: process.env.NUXT_OAUTH_APPLE_KEY_ID,
@@ -22,6 +17,16 @@ export default defineNuxtConfig({
         clientId: process.env.NUXT_OAUTH_APPLE_CLIENT_ID,
         // clientSecret: process.env.NUXT_OAUTH_APPLE_CLIENT_SECRET,
         redirectURL: process.env.NUXT_OAUTH_APPLE_REDIRECT_URL,
+      },
+      facebook: {
+        clientId: process.env.NUXT_OAUTH_FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_FACEBOOK_CLIENT_SECRET,
+        redirectURL: process.env.NUXT_OAUTH_FACEBOOK_REDIRECT_URL,
+      },
+      google: {
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
+        redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL,
       },
     },
   },

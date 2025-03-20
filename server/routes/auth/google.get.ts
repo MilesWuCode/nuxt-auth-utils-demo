@@ -12,14 +12,15 @@ export default defineOAuthGoogleEventHandler({
     },
   },
   async onSuccess(event, { user, tokens }) {
-    // console.log(user, tokens);
-
     // cookie取返回頁路徑
     const redirectedFrom = getCookie(event, "redirectedFrom") ?? "/";
 
+    console.log(user);
+    console.log(tokens.access_token);
+    console.log(tokens.id_token);
+
     await setUserSession(event, {
       user: {
-        id: user.sub,
         name: user.name,
         email: user.email,
       },
