@@ -4,11 +4,13 @@ export default defineNuxtPlugin(() => {
   const handleVisibilityChange = () => {
     isVisible.value = document.visibilityState === "visible";
 
-    if (isVisible.value) {
-      console.log("使用者返回瀏覽器！");
-      console.log("更新用戶資料");
+    const { loggedIn } = useUserSession();
+
+    if (loggedIn.value && isVisible.value) {
+      console.log("會員返回瀏覽器！");
+      console.log("更新會員資料");
     } else {
-      // console.log("使用者離開瀏覽器！");
+      // console.log("會員離開瀏覽器！");
     }
   };
 
