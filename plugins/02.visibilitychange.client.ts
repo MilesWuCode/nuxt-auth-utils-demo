@@ -4,20 +4,17 @@ export default defineNuxtPlugin(() => {
   const handleVisibilityChange = async () => {
     isVisible.value = document.visibilityState === "visible";
 
-    const { loggedIn, fetch, clear } = useUserSession();
+    const { fetch } = useUserSession();
 
-    if (loggedIn.value && isVisible.value) {
-      // console.log('會員返回瀏覽器時更新會員資料')
+    if (isVisible.value) {
+      // console.log('返回瀏覽器')
 
-      await $fetch("/api/me")
-        .then(async () => {
-          await fetch();
-        })
-        .catch(async () => {
-          await clear();
-        });
+      // 無關登入先更新session
+      await fetch();
+
+      // 若是登出則觸發01.auth-redirect.client
     } else {
-      // console.log("會員離開瀏覽器");
+      // console.log("離開瀏覽器");
     }
   };
 
