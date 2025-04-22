@@ -25,14 +25,14 @@ export default defineNuxtRouteMiddleware(async () => {
   }
 
   if (
-    session.value.token &&
+    session.value?.token &&
     isExpired(session.value.token.accessTokenExpiredAt) &&
     isExpired(session.value.token.refreshTokenExpiredAt)
   ) {
     // 二個都過期則清空session
     await clear();
   } else if (
-    session.value.token &&
+    session.value?.token &&
     isExpired(session.value.token.accessTokenExpiredAt)
   ) {
     // 更換token

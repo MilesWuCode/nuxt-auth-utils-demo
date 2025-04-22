@@ -6,7 +6,7 @@ declare module "#auth-utils" {
   }
 
   interface UserSession {
-    token?: {
+    token: {
       accessToken: string;
       accessTokenExpiredAt: number;
       refreshToken: string;
@@ -15,7 +15,7 @@ declare module "#auth-utils" {
     loggedInAt: number;
   }
 
-  interface SecureSessionData {}
+  // interface SecureSessionData {}
 }
 
 export {};
