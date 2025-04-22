@@ -1,9 +1,4 @@
-import {
-  randomString,
-  createAccessTokenExpiredAt,
-  createRefreshTokenExpiredAt,
-} from "~/utils/demo";
-import { isExpired } from "~/utils/help";
+import { isExpired, getExpiredAt, randomString } from "#shared/utils/auth";
 
 export default defineNuxtRouteMiddleware(async () => {
   const nuxtApp = useNuxtApp();
@@ -37,8 +32,8 @@ export default defineNuxtRouteMiddleware(async () => {
   ) {
     // 更換token
     session.value.token.accessToken = randomString();
-    session.value.token.accessTokenExpiredAt = createAccessTokenExpiredAt();
+    session.value.token.accessTokenExpiredAt = getExpiredAt(7 * 86400);
     session.value.token.refreshToken = randomString();
-    session.value.token.refreshTokenExpiredAt = createRefreshTokenExpiredAt();
+    session.value.token.refreshTokenExpiredAt = getExpiredAt(30 * 86400);
   }
 });

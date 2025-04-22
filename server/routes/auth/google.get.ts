@@ -1,9 +1,5 @@
 import { getCookie } from "h3";
-import {
-  randomString,
-  createAccessTokenExpiredAt,
-  createRefreshTokenExpiredAt,
-} from "~/utils/demo";
+import { getExpiredAt, randomString } from "#shared/utils/auth";
 
 export default defineOAuthGoogleEventHandler({
   config: {
@@ -26,9 +22,9 @@ export default defineOAuthGoogleEventHandler({
       },
       token: {
         accessToken: randomString(),
-        accessTokenExpiredAt: createAccessTokenExpiredAt(), // test: 1min
+        accessTokenExpiredAt: getExpiredAt(7 * 86400),
         refreshToken: randomString(),
-        refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
+        refreshTokenExpiredAt: getExpiredAt(30 * 86400),
       },
       loggedInAt: Date.now(),
     });

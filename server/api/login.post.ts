@@ -1,9 +1,6 @@
 import { z } from "zod";
-import {
-  randomString,
-  createAccessTokenExpiredAt,
-  createRefreshTokenExpiredAt,
-} from "~/utils/demo";
+
+import { getExpiredAt, randomString } from "#shared/utils/auth";
 
 const invalidCredentialsError = createError({
   statusCode: 401,
@@ -35,9 +32,9 @@ export default defineEventHandler(async (event) => {
     },
     token: {
       accessToken: randomString(),
-      accessTokenExpiredAt: createAccessTokenExpiredAt(),
+      accessTokenExpiredAt: getExpiredAt(7 * 86400),
       refreshToken: randomString(),
-      refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
+      refreshTokenExpiredAt: getExpiredAt(30 * 86400),
     },
     loggedInAt: Date.now(),
   });

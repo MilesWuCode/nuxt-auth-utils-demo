@@ -1,9 +1,4 @@
-import {
-  randomString,
-  createAccessTokenExpiredAt,
-  createRefreshTokenExpiredAt,
-} from "~/utils/demo";
-import { isExpired } from "~/utils/help";
+import { isExpired, getExpiredAt, randomString } from "#shared/utils/auth";
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event);
@@ -22,9 +17,9 @@ export default defineEventHandler(async (event) => {
         ...session,
         token: {
           accessToken: randomString(),
-          accessTokenExpiredAt: createAccessTokenExpiredAt(),
+          accessTokenExpiredAt: getExpiredAt(7 * 86400),
           refreshToken: randomString(),
-          refreshTokenExpiredAt: createRefreshTokenExpiredAt(),
+          refreshTokenExpiredAt: getExpiredAt(30 * 86400),
         },
       });
     }
