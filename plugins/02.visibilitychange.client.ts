@@ -10,18 +10,18 @@ export default defineNuxtPlugin(() => {
       // 返回瀏覽器
 
       if (loggedIn.value) {
-        // 不同瀏覽器的同步
+        // 不同瀏覽器的同步，要先呼叫一次API
         // 順便檢查authorization是否合法
         await $fetch("/api/me")
           .then(async () => {
             await fetch();
           })
           .catch(async () => {
-            // 失敗責登出
+            // 失敗則登出
             await clear();
           });
       } else {
-        // 未登入時同步瀏覽器分頁是否有登入
+        // 未登入時，同步瀏覽器分頁，來檢查是否有登入
         await fetch();
       }
 
