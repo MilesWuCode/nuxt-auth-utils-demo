@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavbarLink />
-    <slot></slot>
+    <h1>Public</h1>
   </div>
 </template>
