@@ -12,7 +12,7 @@ const { data, refresh } = await useFetch('/api/data')
 
     <fieldset>
       <legend>Data</legend>
-      <button @click="refresh">Refresh</button>
+      <button type="button" @click="() => refresh()">Refresh</button>
       <pre>{{ data }}</pre>
     </fieldset>
   </div>

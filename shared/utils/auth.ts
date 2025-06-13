@@ -1,5 +1,5 @@
-export function isExpired(sec: number = 0) {
-  return sec < Date.now()
+export function isExpired(second: number = 0) {
+  return second < Date.now()
 }
 
 export function getExpiredAt(second: number = 7 * 86400) {

@@ -32,11 +32,13 @@ export default defineEventHandler(async (event) => {
   await setUserSession(event, {
     token: {
       accessToken: randomString(),
-      accessTokenExpiredAt: getExpiredAt(60),
+      accessTokenExpiredAt: getExpiredAt(15),
       refreshToken: randomString(),
-      refreshTokenExpiredAt: getExpiredAt(120),
+      refreshTokenExpiredAt: getExpiredAt(30),
     },
   })
+
+  console.log('api/refreshToken')
 
   return setResponseStatus(event, 204)
 })

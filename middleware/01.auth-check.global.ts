@@ -1,6 +1,6 @@
 import { appendResponseHeader } from 'h3'
 import { parse, parseSetCookie, serialize } from 'cookie-es'
-import { isExpired, getExpiredAt, randomString } from '#shared/utils/auth'
+import { isExpired } from '#shared/utils/auth'
 
 export default defineNuxtRouteMiddleware(async () => {
   const nuxtApp = useNuxtApp()
@@ -18,15 +18,11 @@ export default defineNuxtRouteMiddleware(async () => {
   const serverEvent = useRequestEvent()
   const runtimeConfig = useRuntimeConfig()
 
-  // 未登入
-  if (!session.value) {
-    return
-  }
-
   if (
     // 檢查accessToken和refreshToken都過期
-    isExpired(session.value.token.accessTokenExpiredAt) &&
-    isExpired(session.value.token.refreshTokenExpiredAt)
+    session.value?.token &&
+    isExpired(session.value.token.accessTokenExpiredAt ?? 0) &&
+    isExpired(session.value.token.refreshTokenExpiredAt ?? 0)
   ) {
     // 直接登出
     await clear()
@@ -34,8 +30,9 @@ export default defineNuxtRouteMiddleware(async () => {
 
   if (
     // 只檢查accessToken過期，refreshToken未過期
-    isExpired(session.value.token.accessTokenExpiredAt) &&
-    !isExpired(session.value.token.refreshTokenExpiredAt)
+    session.value?.token &&
+    isExpired(session.value.token.accessTokenExpiredAt ?? 0) &&
+    !isExpired(session.value.token.refreshTokenExpiredAt ?? 0)
   ) {
     console.info('access token expired, refreshing')
 

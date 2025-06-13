@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
   if (
     // accessToken過期
-    isExpired(session.token?.accessTokenExpiredAt)
+    isExpired(session.token.accessTokenExpiredAt)
   ) {
     throw invalidCredentialsError
   }

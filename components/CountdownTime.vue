@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const time = ref(60)
 
-let timer = null
+let timer: NodeJS.Timeout
 
 watch(time, (n) => {
   if (n === 0) {
