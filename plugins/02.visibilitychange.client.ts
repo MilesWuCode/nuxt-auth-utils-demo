@@ -14,12 +14,14 @@ export default defineNuxtPlugin(() => {
       // console.log('會員返回瀏覽器時更新會員資料')
 
       await $fetch('/api/me').catch((error) => {
-        if (error.statusCode === 401) {
+        if (
+          // 若token過期會401
+          error.statusCode === 401
+        ) {
+          // 重新整理頁面
           reloadNuxtApp()
         }
       })
-
-      // await fetch()
     } else {
       // console.log("會員離開瀏覽器");
     }

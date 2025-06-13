@@ -24,7 +24,7 @@ export default defineOAuthGoogleEventHandler({
         accessToken: randomString(),
         accessTokenExpiredAt: getExpiredAt(15),
         refreshToken: randomString(),
-        refreshTokenExpiredAt: getExpiredAt(30),
+        refreshTokenExpiredAt: getExpiredAt(3000),
       },
       loggedInAt: Date.now(),
     })
