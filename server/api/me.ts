@@ -2,11 +2,11 @@
 
 const invalidCredentialsError = createError({
   statusCode: 401,
-  message: "Invalid credentials",
-});
+  message: 'Invalid credentials',
+})
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event);
+  const session = await getUserSession(event)
 
   if (session.token?.accessToken) {
     // const user = await getUser(session.token.accessToken)
@@ -27,8 +27,8 @@ export default defineEventHandler(async (event) => {
     //   loggedInAt: session.loggedInAt,
     // })
 
-    return setResponseStatus(event, 200);
+    return setResponseStatus(event, 200)
   } else {
-    throw invalidCredentialsError;
+    throw invalidCredentialsError
   }
-});
+})

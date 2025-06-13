@@ -1,13 +1,13 @@
-import { getCookie } from "h3";
-import { getExpiredAt, randomString } from "#shared/utils/auth";
+import { getCookie } from 'h3'
+import { getExpiredAt, randomString } from '#shared/utils/auth'
 
 export default defineOAuthFacebookEventHandler({
   async onSuccess(event, { user, tokens }) {
     // cookie取返回頁路徑
-    const redirectedFrom = getCookie(event, "redirectedFrom") ?? "/";
+    const redirectedFrom = getCookie(event, 'redirectedFrom') ?? '/'
 
-    console.log(user);
-    console.log(tokens.access_token);
+    console.log(user)
+    console.log(tokens.access_token)
 
     await setUserSession(event, {
       user: {
@@ -21,14 +21,14 @@ export default defineOAuthFacebookEventHandler({
         refreshTokenExpiredAt: getExpiredAt(30 * 86400),
       },
       loggedInAt: Date.now(),
-    });
+    })
 
-    return sendRedirect(event, redirectedFrom);
+    return sendRedirect(event, redirectedFrom)
   },
   // Optional, will return a json error and 401 status code by default
   onError(event, error) {
-    console.error("Google OAuth error:", error);
+    console.error('Google OAuth error:', error)
 
-    return sendRedirect(event, "/");
+    return sendRedirect(event, '/')
   },
-});
+})

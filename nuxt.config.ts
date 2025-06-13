@@ -1,12 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ["nuxt-auth-utils", "@nuxt/scripts", "@nuxt/eslint"],
+  modules: ['nuxt-auth-utils', '@nuxt/scripts', '@nuxt/eslint'],
 
   runtimeConfig: {
     session: {
-      password: process.env.NUXT_SESSION_PASSWORD ?? "",
+      password: process.env.NUXT_SESSION_PASSWORD ?? '',
       maxAge: 60 * 60 * 24 * 7, // 1 week
     },
     oauth: {
@@ -15,7 +15,6 @@ export default defineNuxtConfig({
         keyId: process.env.NUXT_OAUTH_APPLE_KEY_ID,
         privateKey: process.env.NUXT_OAUTH_APPLE_PRIVATE_KEY,
         clientId: process.env.NUXT_OAUTH_APPLE_CLIENT_ID,
-        // clientSecret: process.env.NUXT_OAUTH_APPLE_CLIENT_SECRET,
         redirectURL: process.env.NUXT_OAUTH_APPLE_REDIRECT_URL,
       },
       facebook: {
@@ -37,4 +36,4 @@ export default defineNuxtConfig({
       openAPI: true,
     },
   },
-});
+})
