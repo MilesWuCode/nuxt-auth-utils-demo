@@ -21,8 +21,8 @@ export default defineNuxtRouteMiddleware(async () => {
   if (
     // 檢查accessToken和refreshToken都過期
     session.value?.token &&
-    isExpired(session.value.token.accessTokenExpiredAt ?? 0) &&
-    isExpired(session.value.token.refreshTokenExpiredAt ?? 0)
+    isExpired(session.value.token.accessTokenExpiredAt) &&
+    isExpired(session.value.token.refreshTokenExpiredAt)
   ) {
     // 直接登出
     await clear()
@@ -31,8 +31,8 @@ export default defineNuxtRouteMiddleware(async () => {
   if (
     // 只檢查accessToken過期，refreshToken未過期
     session.value?.token &&
-    isExpired(session.value.token.accessTokenExpiredAt ?? 0) &&
-    !isExpired(session.value.token.refreshTokenExpiredAt ?? 0)
+    isExpired(session.value.token.accessTokenExpiredAt) &&
+    !isExpired(session.value.token.refreshTokenExpiredAt)
   ) {
     console.info('access token expired, refreshing')
 
