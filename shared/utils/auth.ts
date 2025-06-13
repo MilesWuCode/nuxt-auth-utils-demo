@@ -2,7 +2,7 @@ export function isExpired(sec: number = 0) {
   return sec < Date.now()
 }
 
-export function getExpiredAt(second: number = 7 * 24 * 3600) {
+export function getExpiredAt(second: number = 7 * 86400) {
   return Date.now() + second * 1000
 }
 
