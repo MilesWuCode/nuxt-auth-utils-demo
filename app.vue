@@ -7,6 +7,7 @@ const { user, session } = useUserSession()
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <CountdownTime />
   <fieldset>
     <legend>User</legend>
     <pre>{{ user }}</pre>
