@@ -5,10 +5,11 @@ export default defineNuxtConfig({
   modules: ['nuxt-auth-utils', '@nuxt/scripts', '@nuxt/eslint'],
 
   runtimeConfig: {
+    // nuxt-auth-utils
     session: {
       password: process.env.NUXT_SESSION_PASSWORD ?? '',
-      maxAge: 60 * 60 * 24 * 7, // 1 week
     },
+    // nuxt-auth-utils
     oauth: {
       apple: {
         teamId: process.env.NUXT_OAUTH_APPLE_TEAM_ID,
