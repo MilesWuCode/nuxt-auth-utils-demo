@@ -1,5 +1,4 @@
 import { z } from 'zod'
-
 import { getExpiredAt, randomString } from '#shared/utils/auth'
 
 const invalidCredentialsError = createError({
@@ -21,12 +20,9 @@ export default defineEventHandler(async (event) => {
     throw invalidCredentialsError
   }
 
-  // accessToken
-  // refreshToken
-
   await setUserSession(event, {
     user: {
-      id: 'fake.id',
+      id: Math.floor(Math.random() * 10000).toString(),
       name: 'miles',
       email: email,
     },
