@@ -13,7 +13,9 @@ export default defineNuxtPlugin(() => {
     ) {
       // console.log('會員返回瀏覽器時更新會員資料')
 
-      await $fetch('/api/me').then(fetch)
+      await $fetch('/api/me')
+
+      await fetch()
     } else {
       // console.log("會員離開瀏覽器");
     }
