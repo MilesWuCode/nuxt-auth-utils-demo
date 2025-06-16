@@ -2,12 +2,32 @@
 
 export default defineNuxtRouteMiddleware(() => {
   const { loggedIn } = useUserSession()
+  const route = useRoute()
 
-  if (import.meta.server && loggedIn.value) {
+  if (
+    // 若有登入和SSR時
+    import.meta.server &&
+    loggedIn.value
+  ) {
+    // 導航到首頁
     return navigateTo('/')
   }
 
-  if (import.meta.client && loggedIn.value) {
-    return abortNavigation()
+  if (
+    // 若有登入和nuxtlink進入
+    import.meta.client &&
+    loggedIn.value
+  ) {
+    if (
+      // 訪客頁登入後
+      Array.isArray(route.meta.middleware) &&
+      route.meta.middleware.includes('guest')
+    ) {
+      // 回首頁
+      return navigateTo('/')
+    } else {
+      // 停止導航
+      return abortNavigation()
+    }
   }
 })

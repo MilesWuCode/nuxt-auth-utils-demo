@@ -3,11 +3,5 @@ const { loggedIn, clear } = useUserSession()
 </script>
 
 <template>
-  <button v-if="loggedIn" @click="clear">Logout</button>
+  <a v-if="loggedIn" href="#" @click="clear">Logout</a>
 </template>
-
-<style lang="css" scoped>
-button {
-  align-self: baseline;
-}
-</style>
