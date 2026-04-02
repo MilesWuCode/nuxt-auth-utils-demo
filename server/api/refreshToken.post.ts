@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 
   if (
     // 沒有session
-    !session
+    !session.token
   ) {
     throw createError({
       statusCode: 401,

@@ -1,5 +1,12 @@
 <template>
-  <div>
-    <h1>Index</h1>
-  </div>
+  <UPage>
+    <UPageHeader
+      title="Index"
+      description="A responsive page header with title, description and actions."
+    />
+
+    <UPageBody>
+      <USeparator />
+    </UPageBody>
+  </UPage>
 </template>
