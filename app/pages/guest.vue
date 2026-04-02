@@ -6,6 +6,6 @@ definePageMeta({
 
 <template>
   <div>
-    <h1>Only Guest</h1>
+    <h1>Guest</h1>
   </div>
 </template>

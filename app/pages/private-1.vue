@@ -8,7 +8,7 @@ const { data } = await useFetch('/api/data')
 
 <template>
   <div>
-    <h1>Only User 1</h1>
+    <h1>Private 1</h1>
 
     <fieldset>
       <legend>Data</legend>
