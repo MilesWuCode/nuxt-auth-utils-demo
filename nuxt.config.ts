@@ -37,4 +37,13 @@ export default defineNuxtConfig({
       openAPI: true,
     },
   },
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+      ]
+    }
+  }
 })

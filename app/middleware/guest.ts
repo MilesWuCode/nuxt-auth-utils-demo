@@ -1,8 +1,7 @@
 // 訪客限定頁
 
-export default defineNuxtRouteMiddleware(() => {
+export default defineNuxtRouteMiddleware((to) => {
   const { loggedIn } = useUserSession()
-  const route = useRoute()
 
   if (
     // 若有登入和SSR時
@@ -20,8 +19,8 @@ export default defineNuxtRouteMiddleware(() => {
   ) {
     if (
       // 訪客頁登入後
-      Array.isArray(route.meta.middleware) &&
-      route.meta.middleware.includes('guest')
+      Array.isArray(to.meta.middleware) &&
+      to.meta.middleware.includes('guest')
     ) {
       // 回首頁
       return navigateTo('/')
