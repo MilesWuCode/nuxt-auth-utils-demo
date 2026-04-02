@@ -1,8 +1,11 @@
+import tailwindcss from '@tailwindcss/vite'
+
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ['nuxt-auth-utils', '@nuxt/scripts', '@nuxt/eslint'],
+  modules: ['nuxt-auth-utils', '@nuxt/ui','@nuxt/scripts', '@nuxt/eslint'],
 
   runtimeConfig: {
     // nuxt-auth-utils
@@ -31,6 +34,8 @@ export default defineNuxtConfig({
     },
   },
 
+    css: ['~/assets/css/main.css'],
+
   nitro: {
     experimental: {
       // /_scalar, /_swagger and /_openapi.json
@@ -44,6 +49,7 @@ export default defineNuxtConfig({
         '@vue/devtools-core',
         '@vue/devtools-kit',
       ]
-    }
+    },
+        plugins: [tailwindcss()],
   }
 })
