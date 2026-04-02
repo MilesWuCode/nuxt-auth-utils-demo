@@ -1,10 +1,5 @@
 import { isExpired, getExpiredAt, randomString } from '#shared/utils/auth'
 
-const invalidCredentialsError = createError({
-  statusCode: 401,
-  message: 'Invalid credentials',
-})
-
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
 
@@ -12,21 +7,30 @@ export default defineEventHandler(async (event) => {
     // 沒有session
     !session
   ) {
-    throw invalidCredentialsError
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid credentials',
+    })
   }
 
   if (
     // refreshToken過期
     isExpired(session.token?.refreshTokenExpiredAt)
   ) {
-    throw invalidCredentialsError
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid credentials',
+    })
   }
 
   if (
     // 沒有refreshToken
     !session.token.refreshToken
   ) {
-    throw invalidCredentialsError
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid credentials',
+    })
   }
 
   await setUserSession(event, {

@@ -1,11 +1,5 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import { getExpiredAt, randomString } from '#shared/utils/auth'
-
-const invalidCredentialsError = createError({
-  statusCode: 401,
-  // This message is intentionally vague to prevent user enumeration attacks.
-  message: 'Invalid credentials',
-})
 
 export default defineEventHandler(async (event) => {
   const { email, password } = await readValidatedBody(
@@ -16,8 +10,11 @@ export default defineEventHandler(async (event) => {
     }).parse,
   )
 
-  if (email !== 'miles@email.com' || password !== 'password123') {
-    throw invalidCredentialsError
+  if (email !== 'user@email.com' || password !== 'password') {
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid credentials',
+    })
   }
 
   await setUserSession(event, {

@@ -1,11 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { isExpired } from '#shared/utils/auth'
 
-const invalidCredentialsError = createError({
-  statusCode: 401,
-  message: 'Invalid credentials',
-})
-
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
 
@@ -13,14 +8,20 @@ export default defineEventHandler(async (event) => {
     // 沒有session
     !session
   ) {
-    throw invalidCredentialsError
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid credentials',
+    })
   }
 
   if (
     // accessToken過期
     isExpired(session.token?.accessTokenExpiredAt)
   ) {
-    throw invalidCredentialsError
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid credentials',
+    })
   }
 
   await setUserSession(event, {

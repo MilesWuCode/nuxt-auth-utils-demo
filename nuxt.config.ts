@@ -1,16 +1,16 @@
 import tailwindcss from '@tailwindcss/vite'
 
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ['nuxt-auth-utils', '@nuxt/ui','@nuxt/scripts', '@nuxt/eslint'],
+  modules: ['nuxt-auth-utils', '@nuxt/ui', '@nuxt/scripts', '@nuxt/eslint'],
 
   runtimeConfig: {
     // nuxt-auth-utils
     session: {
-      password: process.env.NUXT_SESSION_PASSWORD ?? '',
+      password: process.env.NUXT_SESSION_PASSWORD as string,
+      maxAge: 7 * 86400, // 7天
     },
     // nuxt-auth-utils
     oauth: {
@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     },
   },
 
-    css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
 
   nitro: {
     experimental: {
@@ -45,11 +45,8 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      include: [
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-      ]
+      include: ['@vue/devtools-core', '@vue/devtools-kit'],
     },
-        plugins: [tailwindcss()],
-  }
+    plugins: [tailwindcss()],
+  },
 })

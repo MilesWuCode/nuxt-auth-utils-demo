@@ -16,8 +16,8 @@ redirectedFromCookie.value = redirectedFrom
 
 const { fetch } = useUserSession()
 
-const email = ref('miles@email.com')
-const password = ref('password123')
+const email = ref('user@email.com')
+const password = ref('password')
 
 const onClick = async () => {
   await $fetch('/api/login', {
