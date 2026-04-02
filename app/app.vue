@@ -1,20 +1,19 @@
-<script setup lang="ts">
-const { user, session } = useUserSession()
-</script>
-
 <template>
   <UApp>
     <NuxtLoadingIndicator />
+
+    <UHeader>
+      <template #right>
+        <UColorModeButton />
+      </template>
+    </UHeader>
+
     <NuxtLayout>
-      <NuxtPage />
+      <UContainer>
+        <NuxtPage />
+      </UContainer>
     </NuxtLayout>
-    <fieldset>
-      <legend>User</legend>
-      <pre>{{ user }}</pre>
-    </fieldset>
-    <fieldset>
-      <legend>Session</legend>
-      <pre>{{ session }}</pre>
-    </fieldset>
+
+    <UFooter />
   </UApp>
 </template>
