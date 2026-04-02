@@ -57,12 +57,14 @@ const items = ref<NavigationMenuItem[][]>([
 </script>
 
 <template>
-  <UContainer>
+  <UContainer class="flex gap-4">
     <UNavigationMenu
       orientation="vertical"
       :items="items"
       class="data-[orientation=vertical]:w-60"
     />
-    <slot />
+    <div class="flex-1">
+      <slot />
+    </div>
   </UContainer>
 </template>
