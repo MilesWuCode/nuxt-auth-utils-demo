@@ -6,17 +6,7 @@ definePageMeta({
   middleware: ['guest'],
 })
 
-const route = useRoute()
-
-const redirectedFrom =
-  route.redirectedFrom?.fullPath ||
-  route.query.redirectedFrom?.toString() ||
-  '/'
-
-// cookie存返回頁路徑
-const redirectedFromCookie = useCookie('redirectedFrom', { maxAge: 3600 })
-redirectedFromCookie.value = redirectedFrom
-
+const { redirectedFrom } = useRedirectedFrom()
 const { fetch } = useUserSession()
 
 const fields: AuthFormField[] = [
