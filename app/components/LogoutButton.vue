@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const { loggedIn, clear } = useUserSession()
+const { loggedIn, clear, user } = useUserSession()
 </script>
 
 <template>
+  <UAvatar v-if="loggedIn" :alt="user?.name" />
   <UButton
     v-if="loggedIn"
     color="neutral"
