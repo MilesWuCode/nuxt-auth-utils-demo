@@ -5,6 +5,8 @@
     <UHeader>
       <template #right>
         <UColorModeButton />
+        <LoginButton />
+        <LogoutButton />
       </template>
     </UHeader>
 
