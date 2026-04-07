@@ -4,7 +4,12 @@ const { loggedIn } = useUserSession()
 </script>
 
 <template>
-  <NuxtLink v-if="!loggedIn" :to="`/login?redirectedFrom=${route.path}`">
-    Login
-  </NuxtLink>
+  <UButton
+    v-if="!loggedIn"
+    :to="`/login?redirectedFrom=${route.path}`"
+    color="neutral"
+    icon="i-lucide-log-in"
+    title="login"
+    variant="ghost"
+  />
 </template>

@@ -92,8 +92,6 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
           <UAuthForm
             :schema="schema"
             title="Login"
-            description="Enter your credentials to access your account."
-            icon="i-lucide-user"
             :fields="fields"
             :providers="providers"
             @submit="onSubmit"

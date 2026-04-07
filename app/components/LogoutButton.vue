@@ -3,5 +3,12 @@ const { loggedIn, clear } = useUserSession()
 </script>
 
 <template>
-  <a v-if="loggedIn" href="#" @click="clear">Logout</a>
+  <UButton
+    v-if="loggedIn"
+    color="neutral"
+    icon="i-lucide-log-out"
+    title="logout"
+    variant="ghost"
+    @click="clear"
+  />
 </template>
