@@ -1,5 +1,9 @@
 <template>
-  <div>
-    <h1>Public</h1>
-  </div>
+  <UPage>
+    <UPageHeader title="Public" description="this is the public page" />
+
+    <UPageBody>
+      <USeparator />
+    </UPageBody>
+  </UPage>
 </template>

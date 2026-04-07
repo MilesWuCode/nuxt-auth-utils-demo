@@ -1,9 +1,6 @@
 <template>
   <UPage>
-    <UPageHeader
-      title="Index"
-      description="A responsive page header with title, description and actions."
-    />
+    <UPageHeader title="Index" description="this is the index page" />
 
     <UPageBody>
       <USeparator />

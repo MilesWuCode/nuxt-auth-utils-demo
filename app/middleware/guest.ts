@@ -15,18 +15,12 @@ export default defineNuxtRouteMiddleware((to) => {
   if (
     // 若有登入和nuxtlink進入
     import.meta.client &&
-    loggedIn.value
+    loggedIn.value &&
+    // 訪客頁登入後
+    Array.isArray(to.meta.middleware) &&
+    to.meta.middleware.includes('guest')
   ) {
-    if (
-      // 訪客頁登入後
-      Array.isArray(to.meta.middleware) &&
-      to.meta.middleware.includes('guest')
-    ) {
-      // 回首頁
-      return navigateTo('/')
-    } else {
-      // 停止導航
-      return abortNavigation()
-    }
+    // 停止導航
+    return abortNavigation()
   }
 })

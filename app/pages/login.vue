@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import * as z from 'zod'
+import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
+
 definePageMeta({
   middleware: ['guest'],
 })
@@ -16,20 +19,71 @@ redirectedFromCookie.value = redirectedFrom
 
 const { fetch } = useUserSession()
 
-const email = ref('user@email.com')
-const password = ref('password')
+const fields: AuthFormField[] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'Enter your email',
+    required: true,
+    defaultValue: 'user@email.com',
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    placeholder: 'Enter your password',
+    required: true,
+    defaultValue: 'password',
+  },
+  // {
+  //   name: 'remember',
+  //   label: 'Remember me',
+  //   type: 'checkbox',
+  // },
+]
 
-const onClick = async () => {
+const origin = useRequestURL().origin
+
+const providers = [
+  {
+    label: 'Apple',
+    icon: 'i-simple-icons-apple',
+    to: `${origin}/auth/apple`,
+  },
+  {
+    label: 'Facebook',
+    icon: 'i-simple-icons-facebook',
+    to: `${origin}/auth/facebook`,
+  },
+  {
+    label: 'Google',
+    icon: 'i-simple-icons-google',
+    to: `${origin}/auth/google`,
+  },
+]
+
+const schema = z.object({
+  email: z.email('Invalid email'),
+  password: z
+    .string('Password is required')
+    .min(8, 'Must be at least 8 characters'),
+})
+
+type Schema = z.output<typeof schema>
+
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  console.log('Submitted', payload)
+
   await $fetch('/api/login', {
     method: 'POST',
     body: {
-      email: email.value,
-      password: password.value,
+      email: payload.data.email,
+      password: payload.data.password,
     },
   })
     .then(async () => {
       await fetch()
-
       await navigateTo(redirectedFrom)
     })
     .catch((err) => {
@@ -41,42 +95,21 @@ const onClick = async () => {
 </script>
 
 <template>
-  <div>
-    <h1>Login</h1>
-
-    <div style="display: flex">
-      <fieldset class="login">
-        <legend>Third-party</legend>
-        <a href="/auth/apple">Apple</a>
-        <a href="/auth/facebook">Facebook</a>
-        <a href="/auth/google">Google</a>
-      </fieldset>
-
-      <fieldset class="form">
-        <legend>Form:</legend>
-        <div>
-          <span>Email</span>
-          <input v-model="email" type="text" name="email" />
-        </div>
-        <div>
-          <span>Password</span>
-          <input v-model="password" type="password" name="password" />
-        </div>
-        <button type="button" @click="onClick">Login</button>
-      </fieldset>
-    </div>
-  </div>
+  <UPage>
+    <UPageBody>
+      <div class="flex justify-center">
+        <UPageCard class="w-full max-w-md">
+          <UAuthForm
+            :schema="schema"
+            title="Login"
+            description="Enter your credentials to access your account."
+            icon="i-lucide-user"
+            :fields="fields"
+            :providers="providers"
+            @submit="onSubmit"
+          />
+        </UPageCard>
+      </div>
+    </UPageBody>
+  </UPage>
 </template>
-
-<style lang="css" scoped>
-.login a {
-  display: block;
-}
-
-.form {
-  span {
-    display: inline-block;
-    width: 100px;
-  }
-}
-</style>

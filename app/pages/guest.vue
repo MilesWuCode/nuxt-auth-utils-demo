@@ -5,7 +5,11 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <h1>Guest</h1>
-  </div>
+  <UPage>
+    <UPageHeader title="Guest" description="this is the guest page" />
+
+    <UPageBody>
+      <USeparator />
+    </UPageBody>
+  </UPage>
 </template>
