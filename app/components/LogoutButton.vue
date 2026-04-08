@@ -1,5 +1,10 @@
 <script setup lang="ts">
 const { loggedIn, clear, user } = useUserSession()
+
+const onClick = async () => {
+  await clear()
+  localStorage.setItem('user-auth-status', 'logout')
+}
 </script>
 
 <template>
@@ -10,6 +15,6 @@ const { loggedIn, clear, user } = useUserSession()
     icon="i-lucide-log-out"
     title="logout"
     variant="ghost"
-    @click="clear"
+    @click="onClick"
   />
 </template>

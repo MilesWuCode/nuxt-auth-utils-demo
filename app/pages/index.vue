@@ -1,3 +1,9 @@
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Index',
+})
+</script>
+
 <template>
   <UPage>
     <UPageHeader title="Index" description="this is the index page" />

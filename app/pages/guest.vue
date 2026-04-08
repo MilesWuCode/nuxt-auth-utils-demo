@@ -2,6 +2,10 @@
 definePageMeta({
   middleware: ['guest'],
 })
+
+useSeoMeta({
+  title: 'Guest',
+})
 </script>
 
 <template>

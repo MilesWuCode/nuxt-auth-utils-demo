@@ -74,6 +74,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   })
     .then(async () => {
       await fetch()
+      localStorage.setItem('user-auth-status', 'login')
       await navigateTo(redirectedFrom.value)
     })
     .catch((err) => {
