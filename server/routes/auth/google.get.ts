@@ -17,8 +17,10 @@ export default defineOAuthGoogleEventHandler({
 
     await setUserSession(event, {
       user: {
+        id: user.sub,
         name: user.name,
         email: user.email,
+        fetched_at: Date.now(),
       },
       token: {
         accessToken: randomString(),

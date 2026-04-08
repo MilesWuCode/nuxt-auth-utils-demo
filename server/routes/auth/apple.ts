@@ -11,7 +11,10 @@ export default defineOAuthAppleEventHandler({
 
     await setUserSession(event, {
       user: {
-        name: user.name,
+        id: user.email!,
+        name: user.name!.firstName!,
+        email: user.email!,
+        fetched_at: Date.now(),
       },
       token: {
         accessToken: randomString(),
