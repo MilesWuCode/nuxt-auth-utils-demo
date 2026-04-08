@@ -3,7 +3,7 @@
 ## 情境
 
 - app/composables/useRedirectedFrom.ts
-  1. wip當CSR換頁時，紀錄先前頁面路徑
+  1. 登入後的返回路徑路徑存到cookies
 
 - app/middleware/01.refresh-token.global.ts
   1. 當換頁時，實作refreshToken功能
