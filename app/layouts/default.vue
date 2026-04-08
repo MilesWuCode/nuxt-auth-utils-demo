@@ -43,7 +43,7 @@ const items = ref<NavigationMenuItem[][]>([
         {
           label: 'Private 2',
           icon: 'i-lucide-house',
-          to: '/private-2',
+          to: '/private-2?query=test',
         },
       ],
     },

@@ -22,5 +22,6 @@ export default defineNuxtRouteMiddleware((to) => {
 
     // 若是使用 ?redirectedFrom=${to.fullPath}
     // 會記錄history，可依需求修改
+    // return navigateTo(`/login?redirectedFrom=${to.fullPath}`)
   }
 })
