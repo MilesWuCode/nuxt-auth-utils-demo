@@ -3,7 +3,13 @@
     <UPageHeader title="Index" description="this is the index page" />
 
     <UPageBody>
-      <div></div>
+      <UPageCard
+        title="Nuxt Auth Utils Demo"
+        description="https://github.com/MilesWuCode/nuxt-auth-utils-demo"
+        icon="i-simple-icons-github"
+        to="https://github.com/MilesWuCode/nuxt-auth-utils-demo"
+        target="_blank"
+      />
     </UPageBody>
   </UPage>
 </template>
