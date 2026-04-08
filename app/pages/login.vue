@@ -86,7 +86,6 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
 
 <template>
   <UPage>
-    <p>{{ redirectedFrom }}</p>
     <UPageBody>
       <div class="flex justify-center">
         <UPageCard class="w-full max-w-md">
@@ -96,6 +95,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
             :fields="fields"
             :providers="providers"
             @submit="onSubmit"
+          />
+          <UAlert
+            title="Redirected From"
+            variant="subtle"
+            :description="redirectedFrom"
           />
         </UPageCard>
       </div>
