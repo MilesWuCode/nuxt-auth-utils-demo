@@ -7,7 +7,7 @@ const path = computed(() =>
     ? route.redirectedFrom?.fullPath ||
       route.query.redirectedFrom?.toString() ||
       '/'
-    : route.path,
+    : route.fullPath,
 )
 </script>
 

@@ -18,6 +18,9 @@ export default defineNuxtRouteMiddleware((to) => {
     !loggedIn.value
   ) {
     // 導到登入頁
-    return navigateTo('/login')
+    return navigateTo(`/login`)
+
+    // 若是使用 ?redirectedFrom=${to.fullPath}
+    // 會記錄history，可依需求修改
   }
 })
