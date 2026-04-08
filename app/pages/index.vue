@@ -3,7 +3,7 @@
     <UPageHeader title="Index" description="this is the index page" />
 
     <UPageBody>
-      <USeparator />
+      <div></div>
     </UPageBody>
   </UPage>
 </template>
