@@ -74,7 +74,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   })
     .then(async () => {
       await fetch()
-      await navigateTo(redirectedFrom)
+      await navigateTo(redirectedFrom.value)
     })
     .catch((err) => {
       console.log(err)
@@ -86,6 +86,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
 
 <template>
   <UPage>
+    <p>{{ redirectedFrom }}</p>
     <UPageBody>
       <div class="flex justify-center">
         <UPageCard class="w-full max-w-md">
