@@ -19,9 +19,10 @@ export default defineEventHandler(async (event) => {
 
   await setUserSession(event, {
     user: {
-      id: Math.floor(Math.random() * 10000).toString(),
+      id: '1',
       name: 'miles',
       email: email,
+      fetched_at: Date.now(),
     },
     token: {
       accessToken: randomString(),

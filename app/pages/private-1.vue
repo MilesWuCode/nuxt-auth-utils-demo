@@ -3,7 +3,6 @@ definePageMeta({
   middleware: ['auth'],
 })
 
-const { user } = useUserSession()
 const { data, refresh } = await useFetch('/api/data')
 </script>
 
@@ -12,11 +11,7 @@ const { data, refresh } = await useFetch('/api/data')
     <UPageHeader title="Private 1" />
 
     <UPageBody>
-      <UCard>
-        <template #header>Me</template>
-
-        <UUser :name="user?.name" :description="user?.email" />
-      </UCard>
+      <UserData />
 
       <UCard>
         <template #header>
@@ -26,7 +21,7 @@ const { data, refresh } = await useFetch('/api/data')
               color="primary"
               variant="outline"
               size="xs"
-              @click="refresh()"
+              @click="() => refresh()"
             >
               Refresh
             </UButton>

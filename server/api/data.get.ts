@@ -2,17 +2,7 @@ import { faker } from '@faker-js/faker'
 import { isExpired } from '#shared/utils/auth'
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-
-  if (
-    // 沒有session
-    !session.token
-  ) {
-    throw createError({
-      statusCode: 401,
-      message: 'Invalid credentials',
-    })
-  }
+  const session = await requireUserSession(event)
 
   if (
     // accessToken過期
@@ -25,7 +15,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const data = []
-  for (let i = 0; i < 2; i++) {
+
+  for (let i = 0; i < 3; i++) {
     data.push({
       id: faker.string.uuid(),
       name: faker.person.fullName(),
