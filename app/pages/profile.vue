@@ -1,0 +1,65 @@
+<script setup lang="ts">
+import * as z from 'zod'
+import type { FormSubmitEvent } from '@nuxt/ui'
+
+definePageMeta({
+  middleware: ['auth'],
+})
+
+const { fetch } = useUserSession()
+
+const schema = z.object({
+  name: z.string('required').nonempty('required'),
+})
+
+type Schema = z.output<typeof schema>
+
+const state = reactive<Partial<Schema>>({
+  name: undefined,
+})
+
+const toast = useToast()
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  await $fetch('/api/profile', {
+    method: 'POST',
+    body: event.data,
+  })
+    .then(async () => {
+      toast.add({
+        title: 'Profile updated',
+        color: 'success',
+      })
+
+      await fetch()
+
+      localStorage.setItem('user-auth-status', 'fetch user data:' + Date.now())
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+</script>
+
+<template>
+  <UPage>
+    <UPageHeader title="Profile" />
+
+    <UPageBody>
+      <UPageCard class="w-full max-w-md">
+        <UForm
+          :schema="schema"
+          :state="state"
+          class="w-full space-y-4"
+          @submit="onSubmit"
+        >
+          <UFormField label="name" name="name" required>
+            <UInput v-model="state.name" class="w-full" />
+          </UFormField>
+
+          <UButton type="submit">Submit</UButton>
+        </UForm>
+      </UPageCard>
+    </UPageBody>
+  </UPage>
+</template>

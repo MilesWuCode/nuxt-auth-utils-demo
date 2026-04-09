@@ -36,6 +36,11 @@ const items = ref<NavigationMenuItem[][]>([
           to: '/login',
         },
         {
+          label: 'Profile',
+          icon: 'i-lucide-house',
+          to: '/profile',
+        },
+        {
           label: 'Private 1',
           icon: 'i-lucide-house',
           to: '/private-1',
