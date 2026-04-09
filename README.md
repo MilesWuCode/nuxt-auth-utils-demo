@@ -21,7 +21,7 @@
   2. 同步用戶資料：當登入中，切換其他分頁，自動抓取用戶資料
   3. 即時登出：當登出時，切換其他分頁，自動抓取用戶資料，若401時自動重新整理頁面
 
-- app/plugins/03.auth-storage-event.client.ts
+- app/plugins/03.auth-storage-event.client.ts (WIP)
   1. 使用localstorage的監聽事件來通知其他分頁重新整理頁面，即時同步用戶資料和登入登出狀態
 
 - server/middleware/auth.ts
