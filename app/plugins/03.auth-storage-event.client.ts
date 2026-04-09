@@ -1,5 +1,3 @@
-import { set } from 'zod'
-
 export default defineNuxtPlugin(() => {
   const { loggedIn } = useUserSession()
 
