@@ -1,4 +1,4 @@
-// 在client登出時自動換頁
+// 用戶登出時，若在auth限定的頁面，則自動換頁
 
 export default defineNuxtPlugin(() => {
   const route = useRoute()
