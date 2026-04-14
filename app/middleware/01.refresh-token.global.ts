@@ -3,6 +3,8 @@ import { parse, parseSetCookie, serialize } from 'cookie-es'
 import { isExpired } from '#shared/utils/auth'
 
 export default defineNuxtRouteMiddleware(async () => {
+  console.log('Route Middleware 01.refresh-token.global.ts')
+
   const nuxtApp = useNuxtApp()
 
   // Don't run on client hydration when server rendered
@@ -14,7 +16,7 @@ export default defineNuxtRouteMiddleware(async () => {
     return
   }
 
-  console.log('SSR進入頁面時執行 & CSR路由換頁時執行')
+  // SSR進入頁面時執行 & CSR路由換頁時執行
 
   const { session, clear, fetch } = useUserSession()
   const serverEvent = useRequestEvent()
@@ -46,7 +48,7 @@ export default defineNuxtRouteMiddleware(async () => {
       return
     }
 
-    console.info('01, accessToken過期，refreshToken未過期')
+    console.info('1.accessToken過期,refreshToken未過期')
 
     // refresh token
     await useRequestFetch()('/api/refreshToken', {
