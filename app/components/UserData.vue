@@ -19,6 +19,6 @@ const fetchMe = async () => {
     </template>
 
     <UUser :name="user?.name" :description="user?.email" />
-    <NuxtTime :datetime="session?.token.refreshTokenExpiredAt!" relative class="text-xs" />
+    <NuxtTime :datetime="user?.fetched_at!" relative class="text-xs" />
   </UCard>
 </template>
