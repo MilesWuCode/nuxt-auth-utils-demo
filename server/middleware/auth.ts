@@ -5,6 +5,10 @@ export default defineEventHandler(async (event) => {
 
   // if (!url.pathname.startsWith('/api/')) return
 
+  // 已知問題
+  // SSR進入頁面後，若多支API發出請求，會造成多支更換token的行為
+  // 應想辦法判別出SSR還是CSR的API請求
+
   const session = await getUserSession(event)
 
   if (
