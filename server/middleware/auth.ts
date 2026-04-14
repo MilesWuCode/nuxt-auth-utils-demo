@@ -25,7 +25,8 @@ export default defineEventHandler(async (event) => {
   const url = getRequestURL(event)
   const session = await getUserSession(event)
 
-  if(!session.user || !session.token) return
+  if(!session.user || !session.token || !url.pathname.startsWith('/api/')) return
+  console.log('middleware auth', url.pathname)
 
   // 1. 判斷是否需要換件：存在 token 且 accessToken 已過期，但 refreshToken 仍有效
   const shouldRefresh =
@@ -71,7 +72,7 @@ export default defineEventHandler(async (event) => {
     const refreshTask = (async (): Promise<UserSession> => {
       try {
         // 模擬非同步 API 延遲 (例如：呼叫外部 Auth Provider 換取新 Token)
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await new Promise(resolve => setTimeout(resolve, 1000))
 
         const newSession: UserSession = {
           ...session,
