@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { user, fetch, loggedIn } = useUserSession()
+const { user, fetch, loggedIn,session } = useUserSession()
 
 const fetchMe = async () => {
   await $fetch('/api/me').then(fetch)
@@ -19,9 +19,6 @@ const fetchMe = async () => {
     </template>
 
     <UUser :name="user?.name" :description="user?.email" />
-
-    <template #footer>
-      <NuxtTime :datetime="user?.fetched_at!" relative class="text-xs" />
-    </template>
+    <NuxtTime :datetime="session?.token.refreshTokenExpiredAt!" relative class="text-xs" />
   </UCard>
 </template>
