@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { user, fetch } = useUserSession()
+const { user, fetch, loggedIn } = useUserSession()
 
 const fetchMe = async () => {
   await $fetch('/api/me').then(fetch)
@@ -7,7 +7,7 @@ const fetchMe = async () => {
 </script>
 
 <template>
-  <UCard>
+  <UCard v-if="loggedIn">
     <template #header>
       <div class="flex justify-between">
         Me
