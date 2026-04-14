@@ -12,6 +12,7 @@ export function useRedirectedFrom() {
       '/'
 
     // 寫入cookie
+    // wip-fix:computed 應為純讀取，副作用應移到獨立函式
     redirectedFromCookie.value = path
 
     return path

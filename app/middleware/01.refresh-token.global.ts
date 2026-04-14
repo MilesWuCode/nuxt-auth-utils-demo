@@ -14,6 +14,8 @@ export default defineNuxtRouteMiddleware(async () => {
     return
   }
 
+  console.log('SSR進入頁面時執行 & CSR路由換頁時執行')
+
   const { session, clear, fetch } = useUserSession()
   const serverEvent = useRequestEvent()
   const runtimeConfig = useRuntimeConfig()
@@ -34,8 +36,6 @@ export default defineNuxtRouteMiddleware(async () => {
     isExpired(session.value.token.accessTokenExpiredAt) &&
     !isExpired(session.value.token.refreshTokenExpiredAt)
   ) {
-    console.info('access token expired, refreshing')
-
     if (
       // 第三方登入沒有refreshToken
       session.value.token.refreshToken === ''
@@ -45,6 +45,8 @@ export default defineNuxtRouteMiddleware(async () => {
       // 離開middleware
       return
     }
+
+    console.info('01, accessToken過期，refreshToken未過期')
 
     // refresh token
     await useRequestFetch()('/api/refreshToken', {

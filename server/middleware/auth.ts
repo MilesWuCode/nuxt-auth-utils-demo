@@ -1,6 +1,10 @@
 import { isExpired, getExpiredAt, randomString } from '#shared/utils/auth'
 
 export default defineEventHandler(async (event) => {
+  // const url = getRequestURL(event)
+
+  // if (!url.pathname.startsWith('/api/')) return
+
   const session = await getUserSession(event)
 
   if (
@@ -20,9 +24,9 @@ export default defineEventHandler(async (event) => {
       ...session,
       token: {
         accessToken: randomString(),
-        accessTokenExpiredAt: getExpiredAt(3600),
+        accessTokenExpiredAt: getExpiredAt(10),
         refreshToken: randomString(),
-        refreshTokenExpiredAt: getExpiredAt(86400),
+        refreshTokenExpiredAt: getExpiredAt(30),
       },
     })
   }
