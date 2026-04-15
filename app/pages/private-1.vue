@@ -9,6 +9,8 @@ definePageMeta({
     <UPageHeader title="Private 1" />
 
     <UPageBody>
+      <RefreshTokenButton />
+
       <UserData />
 
       <RandomData />

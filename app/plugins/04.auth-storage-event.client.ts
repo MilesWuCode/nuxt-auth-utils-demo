@@ -21,6 +21,8 @@ export default defineNuxtPlugin(() => {
     } else if (loggedIn.value && userAuthStatus === 'fetch user data') {
       await $fetch('/api/me')
       await fetch()
+    } else if (loggedIn.value && userAuthStatus === 'fetch auth') {
+      await fetch()
     }
   })
 })
