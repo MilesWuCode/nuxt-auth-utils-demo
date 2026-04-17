@@ -3,7 +3,7 @@ import { parse, parseSetCookie, serialize } from 'cookie-es'
 import { isExpired } from '#shared/utils/auth'
 
 export default defineNuxtRouteMiddleware(async () => {
-  console.log('Route Middleware 01.refresh-token.global.ts')
+  // console.log('Route Middleware 01.refresh-token.global.ts')
 
   const nuxtApp = useNuxtApp()
 
