@@ -23,7 +23,7 @@ watch(
   <UApp :toaster="toaster">
     <NuxtLoadingIndicator />
 
-    <UHeader v-model:open="open">
+    <UHeader v-model:open="open" title="Nuxt Auth Utils Demo">
       <template #right>
         <UColorModeButton />
         <LoginButton />
