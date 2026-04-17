@@ -42,7 +42,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UPage>
+  <div>
     <UPageHeader title="Profile" />
 
     <UPageBody>
@@ -61,5 +61,5 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         </UForm>
       </UPageCard>
     </UPageBody>
-  </UPage>
+  </div>
 </template>

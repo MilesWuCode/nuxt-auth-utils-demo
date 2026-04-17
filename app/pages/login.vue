@@ -89,7 +89,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UPage>
+  <div>
     <UPageBody>
       <div class="flex justify-center">
         <UPageCard class="w-full max-w-md">
@@ -108,5 +108,5 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         </UPageCard>
       </div>
     </UPageBody>
-  </UPage>
+  </div>
 </template>

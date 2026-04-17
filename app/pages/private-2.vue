@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <UPage>
+  <div>
     <UPageHeader title="Private 2" />
 
     <UPageBody>
@@ -18,5 +18,5 @@ definePageMeta({
 
       <RandomData v-for="i of 3" :key="i" />
     </UPageBody>
-  </UPage>
+  </div>
 </template>

@@ -5,7 +5,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <UPage>
+  <div>
     <UPageHeader title="Index" description="this is the index page" />
 
     <UPageBody>
@@ -17,5 +17,5 @@ useSeoMeta({
         target="_blank"
       />
     </UPageBody>
-  </UPage>
+  </div>
 </template>

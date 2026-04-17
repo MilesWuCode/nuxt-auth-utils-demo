@@ -1,25 +1,49 @@
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
+const items = ref<NavigationMenuItem[][]>(siteNavigation.menu)
+
 const toaster = {
   position: 'top-right' as const,
 }
+
+const route = useRoute()
+
+const open = ref(false)
+
+watch(
+  () => route.path,
+  () => {
+    open.value = false
+  },
+)
 </script>
 
 <template>
   <UApp :toaster="toaster">
     <NuxtLoadingIndicator />
 
-    <UHeader>
+    <UHeader v-model:open="open">
       <template #right>
         <UColorModeButton />
-
         <LoginButton />
         <LogoutButton />
       </template>
+
+      <template #body>
+        <UNavigationMenu
+          :items="items"
+          orientation="vertical"
+          class="-mx-2.5"
+        />
+      </template>
     </UHeader>
 
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <UMain>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </UMain>
 
     <UFooter />
   </UApp>

@@ -9,7 +9,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <UPage>
+  <div>
     <UPageHeader title="Guest" description="this is the guest page" />
-  </UPage>
+  </div>
 </template>
