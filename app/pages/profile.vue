@@ -6,6 +6,7 @@ definePageMeta({
   middleware: ['auth'],
 })
 
+const { $api } = useNuxtApp()
 const { fetch } = useUserSession()
 
 const schema = z.object({
@@ -21,7 +22,7 @@ const state = reactive<Partial<Schema>>({
 const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  await $fetch('/api/profile', {
+  await $api('/api/profile', {
     method: 'POST',
     body: event.data,
   })

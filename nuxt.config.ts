@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     // nuxt-auth-utils
     session: {
       password: process.env.NUXT_SESSION_PASSWORD as string,
-      maxAge: 7 * 86400, // 7天
+      maxAge: 1 * 86400, // 建議和 refreshToken 一樣長的時間
     },
     // nuxt-auth-utils
     oauth: {

@@ -16,8 +16,7 @@ definePageMeta({
 
       <UserData />
 
-      <RandomData key="abc" />
-      <RandomData key="def" />
+      <RandomData v-for="i of 3" :key="i" />
     </UPageBody>
   </UPage>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { loggedIn, fetch, session } = useUserSession()
+const { loggedIn, fetch } = useUserSession()
 </script>
 
 <template>
@@ -12,12 +12,4 @@ const { loggedIn, fetch, session } = useUserSession()
   >
     Auth Fetch
   </UButton>
-
-  <NuxtTime
-    :datetime="session?.token.accessTokenExpiredAt!"
-    hour="numeric"
-    minute="numeric"
-    second="numeric"
-    class="text-xs"
-  />
 </template>

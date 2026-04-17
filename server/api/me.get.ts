@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
+  const session = await requireUserSession(event)
 
   await setUserSession(event, {
     // @ts-ignore
@@ -8,5 +8,9 @@ export default defineEventHandler(async (event) => {
     },
   })
 
-  return setResponseStatus(event, 200)
+  setResponseStatus(event, 200)
+
+  return {
+    ...session?.user,
+  }
 })

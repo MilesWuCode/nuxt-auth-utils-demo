@@ -1,18 +1,7 @@
 <script setup lang="ts">
-const { fetch: authFresh, session } = useUserSession()
 const uid = useId()
 
-const { data, refresh } = await useFetch('/api/data', {
-  async onRequest() {
-    console.log(isExpired(session.value?.token.accessTokenExpiredAt))
-    if (isExpired(session.value?.token.accessTokenExpiredAt)) {
-      await $fetch('/api/refreshToken', { method: 'POST' })
-      await authFresh()
-    }
-  },
-  async onResponseError({ error }) {
-    console.log(error)
-  },
+const { data, refresh } = await useApi('/api/data', {
   key: uid,
 })
 </script>

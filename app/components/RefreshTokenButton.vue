@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { loggedIn, session } = useUserSession()
+const { loggedIn } = useUserSession()
 
 const onClick = async () => {
   await $fetch('/api/refreshToken', { method: 'POST' })
@@ -16,12 +16,4 @@ const onClick = async () => {
   >
     Refresh Token
   </UButton>
-
-  <NuxtTime
-    :datetime="session?.token.accessTokenExpiredAt!"
-    hour="numeric"
-    minute="numeric"
-    second="numeric"
-    class="text-xs"
-  />
 </template>

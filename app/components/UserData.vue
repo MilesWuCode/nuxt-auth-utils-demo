@@ -1,9 +1,7 @@
 <script setup lang="ts">
-const { user, fetch, loggedIn,session } = useUserSession()
+const { loggedIn } = useUserSession()
 
-const fetchMe = async () => {
-  await $fetch('/api/me').then(fetch)
-}
+const { data, refresh } = await useApi('/api/me')
 </script>
 
 <template>
@@ -12,13 +10,18 @@ const fetchMe = async () => {
       <div class="flex justify-between">
         Me
 
-        <UButton color="primary" variant="outline" size="xs" @click="fetchMe">
+        <UButton
+          color="primary"
+          variant="outline"
+          size="xs"
+          @click="() => refresh()"
+        >
           Fetch Me
         </UButton>
       </div>
     </template>
 
-    <UUser :name="user?.name" :description="user?.email" />
-    <NuxtTime :datetime="user?.fetched_at!" relative class="text-xs" />
+    <UUser :name="data?.name" :description="data?.email" />
+    <NuxtTime :datetime="data?.fetched_at!" relative class="text-xs" />
   </UCard>
 </template>
