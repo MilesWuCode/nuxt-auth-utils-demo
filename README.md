@@ -19,8 +19,8 @@
 - 查看檔案內部解釋功能
   1. app/plugins/01.auth-redirect.client.ts
   2. app/plugins/02.auth-app-mounted.client.ts
-  3. app/plugins/03.auth-web-tab-event.client.ts
-  4. app/plugins/04.auth-storage-event.client.ts
+  3. app/plugins/03.auth-web-tab.client.ts
+  4. app/plugins/04.auth-broadcast.client.ts
 
 - 客製化$fetch及useFetch
   1. app/plugins/api.ts
