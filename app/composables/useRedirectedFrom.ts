@@ -11,11 +11,12 @@ export function useRedirectedFrom() {
       route.query.redirectedFrom?.toString() ||
       '/'
 
-    // 寫入cookie
-    // wip-fix:computed 應為純讀取，副作用應移到獨立函式
-    redirectedFromCookie.value = path
-
     return path
+  })
+
+  // 更新cookie
+  watch(redirectedFrom, (val) => {
+    redirectedFromCookie.value = val
   })
 
   return { redirectedFrom }

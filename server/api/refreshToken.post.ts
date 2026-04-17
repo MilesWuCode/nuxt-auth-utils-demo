@@ -45,5 +45,5 @@ export default defineEventHandler(async (event) => {
 
   console.log('server/api/refreshToken.post.ts')
 
-  return setResponseStatus(event, 204)
+  setResponseStatus(event, 204)
 })
