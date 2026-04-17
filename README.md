@@ -16,14 +16,12 @@
   2. 若CSR換頁時，則停止導航
   3. 若CSR換頁時，若從登入頁回到先前訪客專頁，則回到首頁
 
-查看檔案內部解釋功能
+- 查看檔案內部解釋功能
+  1. app/plugins/01.auth-redirect.client.ts
+  2. app/plugins/02.auth-app-mounted.client.ts
+  3. app/plugins/03.auth-web-tab-event.client.ts
+  4. app/plugins/04.auth-storage-event.client.ts
 
-- app/plugins/01.auth-redirect.client.ts
-- app/plugins/02.auth-app-mounted.client.ts
-- app/plugins/03.auth-web-tab-event.client.ts
-- app/plugins/04.auth-storage-event.client.ts
-
-- server/middleware/auth.ts
-  1. 檢查accessToken和refreshToken是否過期
-  2. 若accessToken和refreshToken過期，則清除session
-  3. 若accessToken過期，則使用refreshToken換取新的accessToken
+- 客製化$fetch及useFetch
+  1. app/plugins/api.ts
+  2. app/composables/useApi.ts

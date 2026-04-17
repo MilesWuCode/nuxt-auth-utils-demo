@@ -1,3 +1,5 @@
+// 客製化$fetch及useFetch
+
 export default defineNuxtPlugin((nuxtApp) => {
   const { session, fetch } = useUserSession()
 
