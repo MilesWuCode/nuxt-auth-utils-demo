@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const { loggedIn, session } = useUserSession()
-
-const onClick = async () => {
-  await $fetch('/api/refreshToken', { method: 'POST' })
-}
+const { loggedIn, fetch, session } = useUserSession()
 </script>
 
 <template>
@@ -12,9 +8,9 @@ const onClick = async () => {
     color="primary"
     variant="outline"
     size="xs"
-    @click="onClick"
+    @click="fetch"
   >
-    Refresh Token
+    Auth Fetch
   </UButton>
 
   <NuxtTime

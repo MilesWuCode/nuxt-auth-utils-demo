@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
       accessToken: randomString(),
       accessTokenExpiredAt: getExpiredAt(10),
       refreshToken: randomString(),
-      refreshTokenExpiredAt: getExpiredAt(30),
+      refreshTokenExpiredAt: getExpiredAt(86400),
     },
   })
 

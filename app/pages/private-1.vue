@@ -9,11 +9,15 @@ definePageMeta({
     <UPageHeader title="Private 1" />
 
     <UPageBody>
-      <RefreshTokenButton />
+      <div class="flex gap-2">
+        <RefreshTokenButton />
+        <AuthFetchButton />
+      </div>
 
       <UserData />
 
-      <RandomData />
+      <RandomData key="abc" />
+      <RandomData key="def" />
     </UPageBody>
   </UPage>
 </template>

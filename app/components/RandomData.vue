@@ -1,5 +1,20 @@
 <script setup lang="ts">
-const { data, refresh } = await useFetch('/api/data')
+const { fetch: authFresh, session } = useUserSession()
+const uid = useId()
+
+const { data, refresh } = await useFetch('/api/data', {
+  async onRequest() {
+    console.log(isExpired(session.value?.token.accessTokenExpiredAt))
+    if (isExpired(session.value?.token.accessTokenExpiredAt)) {
+      await $fetch('/api/refreshToken', { method: 'POST' })
+      await authFresh()
+    }
+  },
+  async onResponseError({ error }) {
+    console.log(error)
+  },
+  key: uid,
+})
 </script>
 
 <template>
@@ -7,7 +22,12 @@ const { data, refresh } = await useFetch('/api/data')
     <template #header>
       <div class="flex justify-between">
         Random User
-        <UButton color="primary" variant="outline" size="xs" @click="() => refresh()">
+        <UButton
+          color="primary"
+          variant="outline"
+          size="xs"
+          @click="() => refresh()"
+        >
           Refresh
         </UButton>
       </div>

@@ -20,7 +20,7 @@ export default defineOAuthFacebookEventHandler({
         accessToken: randomString(),
         accessTokenExpiredAt: getExpiredAt(15),
         refreshToken: randomString(),
-        refreshTokenExpiredAt: getExpiredAt(30),
+        refreshTokenExpiredAt: getExpiredAt(86400),
       },
       loggedInAt: Date.now(),
     })
