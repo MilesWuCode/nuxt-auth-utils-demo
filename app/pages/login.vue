@@ -8,6 +8,7 @@ definePageMeta({
 
 const { redirectedFrom } = useRedirectedFrom()
 const { fetch } = useUserSession()
+const authBroadcastChannel = new BroadcastChannel('auth')
 
 const fields: AuthFormField[] = [
   {
@@ -75,7 +76,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     .then(async () => {
       await fetch()
 
-      localStorage.setItem('user-auth-status', 'login')
+      authBroadcastChannel.postMessage({ action: 'login' })
 
       await navigateTo(redirectedFrom.value)
     })

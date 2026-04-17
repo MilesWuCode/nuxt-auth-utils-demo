@@ -8,6 +8,7 @@ definePageMeta({
 
 const { $api } = useNuxtApp()
 const { fetch } = useUserSession()
+const authBroadcastChannel = new BroadcastChannel('auth')
 
 const schema = z.object({
   name: z.string('required').nonempty('required'),
@@ -32,9 +33,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         color: 'success',
       })
 
-      await fetch()
-
-      localStorage.setItem('user-auth-status', 'fetch user data:' + Date.now())
+      authBroadcastChannel.postMessage({ action: 'fetch-user' })
     })
     .catch((err) => {
       console.log(err)

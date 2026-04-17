@@ -1,9 +1,12 @@
 <script setup lang="ts">
 const { loggedIn, clear, user } = useUserSession()
 
+const authBroadcastChannel = new BroadcastChannel('auth')
+
 const onClick = async () => {
   await clear()
-  localStorage.setItem('user-auth-status', 'logout')
+
+  authBroadcastChannel.postMessage({ action: 'logout' })
 }
 </script>
 
