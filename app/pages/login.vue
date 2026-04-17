@@ -6,6 +6,10 @@ definePageMeta({
   middleware: ['guest'],
 })
 
+useSeoMeta({
+  title: 'Login',
+})
+
 const { redirectedFrom } = useRedirectedFrom()
 const { fetch } = useUserSession()
 const authBroadcastChannel = new BroadcastChannel('auth')

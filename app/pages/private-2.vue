@@ -2,6 +2,10 @@
 definePageMeta({
   middleware: ['auth'],
 })
+
+useSeoMeta({
+  title: 'Private 2',
+})
 </script>
 
 <template>

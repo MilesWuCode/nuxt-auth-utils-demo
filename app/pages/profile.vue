@@ -6,6 +6,10 @@ definePageMeta({
   middleware: ['auth'],
 })
 
+useSeoMeta({
+  title: 'Profile',
+})
+
 const { $api } = useNuxtApp()
 const authBroadcastChannel = new BroadcastChannel('auth')
 
