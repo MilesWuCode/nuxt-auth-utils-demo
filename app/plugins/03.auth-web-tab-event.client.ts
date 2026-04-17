@@ -10,25 +10,19 @@ export default defineNuxtPlugin(() => {
 
     const { loggedIn, fetch } = useUserSession()
 
-    if (
-      // 返回瀏覽器 和 有登入
-      loggedIn.value &&
-      isVisible.value
-    ) {
-      // 更新會員資料
-      await $fetch('/api/me')
-        .then(fetch)
-        .catch((error) => {
-          if (
-            // 若token過期會401
-            error.statusCode === 401
-          ) {
-            // 重新整理頁面
-            reloadNuxtApp()
-          }
-        })
-    } else {
-      // console.log("會員離開瀏覽器");
+    try {
+      if (
+        // 返回瀏覽器 和 有登入
+        loggedIn.value &&
+        isVisible.value
+      ) {
+        await $fetch('/api/me')
+        await fetch()
+      } else {
+        // console.log("會員離開瀏覽器");
+      }
+    } catch {
+      reloadNuxtApp()
     }
   }
 
