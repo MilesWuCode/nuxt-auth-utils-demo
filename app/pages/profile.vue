@@ -7,7 +7,6 @@ definePageMeta({
 })
 
 const { $api } = useNuxtApp()
-const { fetch } = useUserSession()
 const authBroadcastChannel = new BroadcastChannel('auth')
 
 const schema = z.object({
@@ -16,8 +15,10 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>
 
+const { data } = await useApi('/api/me')
+
 const state = reactive<Partial<Schema>>({
-  name: undefined,
+  name: data.value?.name,
 })
 
 const toast = useToast()
