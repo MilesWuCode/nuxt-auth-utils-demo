@@ -9,7 +9,7 @@ export default withNuxt({
     'vue/define-macros-order': [
       'warn',
       {
-        order: ['defineProps', 'defineModel', 'defineEmits'],
+        order: ['defineOptions', 'defineProps', 'defineModel', 'defineEmits'],
         defineExposeLast: true,
       },
     ],
