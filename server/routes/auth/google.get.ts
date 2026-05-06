@@ -1,5 +1,5 @@
-import { getCookie } from 'h3'
 import { getExpiredAt, randomString } from '#shared/utils/auth'
+import { getCookie } from 'h3'
 
 export default defineOAuthGoogleEventHandler({
   config: {

@@ -3,6 +3,7 @@
   "singleQuote": true,
   "htmlWhitespaceSensitivity": "ignore",
   "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],
   "tailwindStylesheet": "./app/assets/css/main.css"

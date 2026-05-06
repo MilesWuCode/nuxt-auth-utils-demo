@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker'
 import { isExpired } from '#shared/utils/auth'
+import { faker } from '@faker-js/faker'
 
 export default defineEventHandler(async (event) => {
   const session = await requireUserSession(event)
