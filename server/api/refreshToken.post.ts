@@ -1,4 +1,5 @@
-import { isExpired, getExpiredAt, randomString } from '#shared/utils/auth'
+import { isExpired, getExpiredAt } from '#shared/utils/auth'
+import { jwtVerify, SignJWT, errors } from 'jose'
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -33,15 +34,50 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  await setUserSession(event, {
-    ...session,
-    token: {
-      accessToken: randomString(),
-      accessTokenExpiredAt: getExpiredAt(10),
-      refreshToken: randomString(),
-      refreshTokenExpiredAt: getExpiredAt(86400),
-    },
-  })
+  const secret = new TextEncoder().encode(process.env.NUXT_JWT_SECRET)
+
+  try {
+    const { payload } = await jwtVerify(session.token.refreshToken, secret)
+
+    const accessToken = await new SignJWT({
+      sub: payload.sub,
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('10s')
+      .sign(secret)
+
+    const refreshToken = await new SignJWT({
+      sub: payload.sub,
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('1d')
+      .sign(secret)
+
+    await setUserSession(event, {
+      ...session,
+      token: {
+        accessToken: accessToken,
+        accessTokenExpiredAt: getExpiredAt(10),
+        refreshToken: refreshToken,
+        refreshTokenExpiredAt: getExpiredAt(86400),
+      },
+    })
+  } catch (err) {
+    if (err instanceof errors.JWTExpired) {
+      throw createError({ statusCode: 401, message: 'Token expired' })
+    }
+    if (err instanceof errors.JWTInvalid || err instanceof errors.JWSInvalid) {
+      throw createError({ statusCode: 401, message: 'Invalid token' })
+    }
+    if (err instanceof errors.JWSSignatureVerificationFailed) {
+      throw createError({ statusCode: 401, message: 'Token tampered' })
+    }
+
+    throw createError({
+      statusCode: 500,
+      message: 'Auth Error',
+    })
+  }
 
   // console.log('server/api/refreshToken.post.ts')
 

@@ -1,6 +1,6 @@
-import { appendResponseHeader } from 'h3'
-import { parse, parseSetCookie, serialize } from 'cookie-es'
 import { isExpired } from '#shared/utils/auth'
+import { parse, parseSetCookie, serialize } from 'cookie-es'
+import { appendResponseHeader } from 'h3'
 
 export default defineNuxtRouteMiddleware(async () => {
   // console.log('Route Middleware 01.refresh-token.global.ts')
@@ -50,38 +50,42 @@ export default defineNuxtRouteMiddleware(async () => {
 
     console.info('1.accessToken過期,refreshToken未過期')
 
-    // refresh token
-    await useRequestFetch()('/api/refreshToken', {
-      method: 'POST',
-      onResponse({ response: { headers } }) {
-        // Forward the Set-Cookie header to the main server event
-        if (import.meta.server && serverEvent) {
-          for (const setCookie of headers.getSetCookie()) {
-            appendResponseHeader(serverEvent, 'Set-Cookie', setCookie)
-            // Update session cookie for next fetch requests
-            const { name, value } = parseSetCookie(setCookie)
-            if (name === runtimeConfig.session.name) {
-              // console.log('updating headers.cookie to', value)
-              const cookies = parse(serverEvent.headers.get('cookie') || '')
-              // set or overwrite existing cookie
-              cookies[name] = value
-              // update cookie event header for future requests
-              serverEvent.headers.set(
-                'cookie',
-                Object.entries(cookies)
-                  .map(([name, value]) => serialize(name, value))
-                  .join('; '),
-              )
-              // Also apply to serverEvent.node.req.headers
-              if (serverEvent.node?.req?.headers) {
-                serverEvent.node.req.headers['cookie'] =
-                  serverEvent.headers.get('cookie') || ''
+    try {
+      // refresh token
+      await useRequestFetch()('/api/refreshToken', {
+        method: 'POST',
+        onResponse({ response: { headers } }) {
+          // Forward the Set-Cookie header to the main server event
+          if (import.meta.server && serverEvent) {
+            for (const setCookie of headers.getSetCookie()) {
+              appendResponseHeader(serverEvent, 'Set-Cookie', setCookie)
+              // Update session cookie for next fetch requests
+              const { name, value } = parseSetCookie(setCookie)
+              if (name === runtimeConfig.session.name) {
+                // console.log('updating headers.cookie to', value)
+                const cookies = parse(serverEvent.headers.get('cookie') || '')
+                // set or overwrite existing cookie
+                cookies[name] = value
+                // update cookie event header for future requests
+                serverEvent.headers.set(
+                  'cookie',
+                  Object.entries(cookies)
+                    .map(([name, value]) => serialize(name, value))
+                    .join('; '),
+                )
+                // Also apply to serverEvent.node.req.headers
+                if (serverEvent.node?.req?.headers) {
+                  serverEvent.node.req.headers['cookie'] =
+                    serverEvent.headers.get('cookie') || ''
+                }
               }
             }
           }
-        }
-      },
-    })
+        },
+      })
+    } catch {
+      await clear()
+    }
 
     // refresh the session
     await fetch()

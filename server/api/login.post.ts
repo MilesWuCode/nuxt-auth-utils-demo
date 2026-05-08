@@ -1,6 +1,6 @@
+import { getExpiredAt } from '#shared/utils/auth'
+import { SignJWT } from 'jose'
 import * as z from 'zod'
-import { getExpiredAt, randomString } from '#shared/utils/auth'
-// import { SignJWT } from 'jose'
 
 export default defineEventHandler(async (event) => {
   const { email, password } = await readValidatedBody(
@@ -18,29 +18,31 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+  const user = {
+    id: '1',
+    name: 'miles',
+    email: email,
+    fetched_at: Date.now(),
+  }
 
-  //  const accessToken = await new SignJWT({ sub: user.id, email: user.email })
-  //   .setProtectedHeader({ alg: 'HS256' })
-  //   .setExpirationTime('15m')
-  //   .sign(secret)
+  const secret = new TextEncoder().encode(process.env.NUXT_JWT_SECRET)
 
-  // const refreshToken = await new SignJWT({ sub: user.id })
-  //   .setProtectedHeader({ alg: 'HS256' })
-  //   .setExpirationTime('7d')
-  //   .sign(secret)
+  const accessToken = await new SignJWT({ sub: user.id })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime('10s')
+    .sign(secret)
+
+  const refreshToken = await new SignJWT({ sub: user.id })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime('1d')
+    .sign(secret)
 
   await setUserSession(event, {
-    user: {
-      id: '1',
-      name: 'miles',
-      email: email,
-      fetched_at: Date.now(),
-    },
+    user: user,
     token: {
-      accessToken: randomString(),
+      accessToken: accessToken,
       accessTokenExpiredAt: getExpiredAt(10),
-      refreshToken: randomString(),
+      refreshToken: refreshToken,
       refreshTokenExpiredAt: getExpiredAt(86400),
     },
     loggedInAt: Date.now(),
