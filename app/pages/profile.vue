@@ -10,6 +10,7 @@ useSeoMeta({
   title: 'Profile',
 })
 
+const { session } = useUserSession()
 const { $api } = useNuxtApp()
 const authBroadcastChannel = new BroadcastChannel('auth')
 
@@ -51,7 +52,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     <UPageHeader title="Profile" />
 
     <UPageBody>
-      <UPageCard class="w-full max-w-md">
+      <UPageCard title="Change Name">
         <UForm
           :schema="schema"
           :state="state"
@@ -64,6 +65,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
           <UButton type="submit">Submit</UButton>
         </UForm>
+      </UPageCard>
+
+      <UPageCard title="Session">
+        <pre class="text-xs wrap-break-word">{{
+          JSON.stringify(session, null, 2)
+        }}</pre>
       </UPageCard>
     </UPageBody>
   </div>

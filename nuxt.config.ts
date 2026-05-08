@@ -5,7 +5,13 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['nuxt-auth-utils', '@nuxt/ui', '@nuxt/scripts', '@nuxt/eslint'],
+  modules: [
+    'nuxt-auth-utils',
+    '@nuxt/ui',
+    '@nuxt/scripts',
+    '@nuxt/eslint',
+    '@nuxt/content',
+  ],
 
   runtimeConfig: {
     // nuxt-auth-utils
