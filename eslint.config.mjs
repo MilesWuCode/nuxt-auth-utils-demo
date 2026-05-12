@@ -6,6 +6,20 @@ export default withNuxt({
     'vue/html-self-closing': 'off',
     'vue/no-v-html': 'off',
     'vue/multi-word-component-names': 'off',
+    'vue/block-lang': [
+      'error',
+      {
+        script: {
+          lang: 'ts',
+        },
+      },
+    ],
+    'vue/block-order': [
+      'error',
+      {
+        order: ['script', 'template', 'style'],
+      },
+    ],
     'vue/define-macros-order': [
       'warn',
       {
