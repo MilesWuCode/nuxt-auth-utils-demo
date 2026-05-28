@@ -25,7 +25,9 @@ export default defineEventHandler(async (event) => {
     fetched_at: Date.now(),
   }
 
-  const secret = new TextEncoder().encode(process.env.NUXT_JWT_SECRET)
+  const { jwtSecret } = useRuntimeConfig()
+
+  const secret = new TextEncoder().encode(jwtSecret)
 
   const accessToken = await new SignJWT({ sub: user.id })
     .setProtectedHeader({ alg: 'HS256' })

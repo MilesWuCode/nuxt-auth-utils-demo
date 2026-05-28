@@ -19,6 +19,8 @@ export default defineNuxtConfig({
       password: process.env.NUXT_SESSION_PASSWORD as string,
       maxAge: 1 * 86400, // 建議和 refreshToken 一樣長的時間
     },
+    // JWT
+    jwtSecret: process.env.NUXT_JWT_SECRET,
     // nuxt-auth-utils
     oauth: {
       apple: {

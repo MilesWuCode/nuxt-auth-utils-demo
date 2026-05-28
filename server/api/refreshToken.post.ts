@@ -34,7 +34,9 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const secret = new TextEncoder().encode(process.env.NUXT_JWT_SECRET)
+  const { jwtSecret } = useRuntimeConfig()
+
+  const secret = new TextEncoder().encode(jwtSecret)
 
   try {
     const { payload } = await jwtVerify(session.token.refreshToken, secret)
@@ -79,7 +81,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // console.log('server/api/refreshToken.post.ts')
+  console.log('refreshToken')
 
   setResponseStatus(event, 204)
 })

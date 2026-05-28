@@ -1,7 +1,7 @@
 declare module 'nuxt/schema' {
-  // interface RuntimeConfig {
-  //   //
-  // }
+  interface RuntimeConfig {
+    jwtSecret: string
+  }
   // interface PublicRuntimeConfig {
   //   //
   // }
