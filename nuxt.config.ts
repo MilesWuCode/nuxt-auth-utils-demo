@@ -13,6 +13,9 @@ export default defineNuxtConfig({
     '@nuxt/content',
   ],
 
+  // wip
+  // extends: ['../nuxt-audio'],
+
   runtimeConfig: {
     // nuxt-auth-utils
     session: {
