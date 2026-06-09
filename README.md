@@ -25,3 +25,10 @@
 - 客製化$fetch及useFetch
   1. app/plugins/api.ts
   2. app/composables/useApi.ts
+
+## renovate
+
+```sh
+# validator renovate.json
+npx --package renovate renovate-config-validator renovate.json
+```
