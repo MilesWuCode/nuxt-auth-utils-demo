@@ -2,9 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>nuxt/renovate-config-nuxt"
-  ],
-  "gitAuthor": "miles <slion0725@gmail.com>",
-  "vulnerabilityAlerts": {
-    "enabled": false
-  }
+  ]
 }
