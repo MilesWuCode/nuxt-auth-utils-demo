@@ -7,25 +7,32 @@ export default withNuxt({
     'vue/no-v-html': 'off', // 允許 v-html
     'vue/multi-word-component-names': 'off', // 允許單字元件名稱
     'vue/padding-line-between-blocks': ['error', 'always'], // script template style 之間必須空行
-    'vue/block-lang': [
+    'vue/block-lang': [ // script 區塊必須使用 TypeScript
       'error',
       {
         script: {
-          lang: 'ts', // script 必須使用 TypeScript
+          lang: 'ts',
         },
       },
     ],
-    'vue/block-order': [
+    'vue/block-order': [ // 區塊順序：script > template > style
       'error',
       {
-        order: ['script', 'template', 'style'], // 區塊順序：script > template > style
+        order: ['script', 'template', 'style'],
       },
     ],
-    'vue/define-macros-order': [
+    'vue/define-macros-order': [ // macro 宣告順序，defineExpose 放最後
       'warn',
       {
-        order: ['defineOptions', 'defineProps', 'defineModel', 'defineEmits'], // macro 宣告順序
-        defineExposeLast: true, // defineExpose 放最後
+        order: ['defineOptions', 'defineProps', 'defineModel', 'defineEmits'],
+        defineExposeLast: true,
+      },
+    ],
+    'vue/component-name-in-template-casing': [ // template 中元件名稱必須使用 PascalCase
+      'error',
+      'PascalCase',
+      {
+        registeredComponentsOnly: false,
       },
     ],
   },
