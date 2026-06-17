@@ -23,4 +23,6 @@ logs
 .env.*
 !.env.example
 
+# for docker
 .git
+docker

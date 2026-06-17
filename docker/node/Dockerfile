@@ -1,26 +1,26 @@
-ARG NODE_VERSION=22
+ARG NODE_VERSION=26
 
-FROM node:${NODE_VERSION}-alpine AS base
+# Build
+FROM node:${NODE_VERSION}-alpine AS build
 
-ARG ENV=local.env
+ARG ENV_FiLE=local.env
 
 WORKDIR /app
 
-# Build
-FROM base AS build
-
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-COPY ./envs/${ENV} .env
+COPY ./envs/${ENV_FiLE} .env
 
 RUN npm run build
 
 # Run
-FROM base
+FROM node:${NODE_VERSION}-alpine
+
+WORKDIR /app
 
 COPY --from=build /app/.output /app/.output
 
