@@ -13,10 +13,12 @@ docker build \
 docker run --detach \
 --name nuxt-auth-utils-demo \
 --publish 3000:3000 \
+--memory=100m \
+--memory-swap=100m \
 --restart unless-stopped \
 nuxt-auth-utils-demo:latest
 
-# 多平台，無快取
+# BUILD : 多平台，無快取
 # docker buildx build
 # --platform linux/arm64
 # --no-cache
