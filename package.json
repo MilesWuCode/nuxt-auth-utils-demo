@@ -7,7 +7,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0",
@@ -22,7 +25,7 @@
     "eslint": "^10.5.0",
     "nuxt": "^4.4.8",
     "nuxt-auth-utils": "^0.5.29",
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
