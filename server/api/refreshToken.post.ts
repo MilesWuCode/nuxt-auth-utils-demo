@@ -1,32 +1,14 @@
-import { isExpired, getExpiredAt } from '#shared/utils/auth'
-import { jwtVerify, SignJWT, errors } from 'jose'
+import { isExpired } from '#shared/utils/auth'
+import { jwtVerify, errors } from 'jose'
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
 
   if (
-    // 沒有session
-    !session.token
-  ) {
-    throw createError({
-      statusCode: 401,
-      message: 'Invalid credentials',
-    })
-  }
-
-  if (
-    // refreshToken過期
-    isExpired(session.token?.refreshTokenExpiredAt)
-  ) {
-    throw createError({
-      statusCode: 401,
-      message: 'Invalid credentials',
-    })
-  }
-
-  if (
-    // 沒有refreshToken
-    !session.token.refreshToken
+    // 沒有token / 沒有refreshToken / refreshToken已過期
+    !session.token ||
+    !session.token.refreshToken ||
+    isExpired(session.token.refreshTokenExpiredAt)
   ) {
     throw createError({
       statusCode: 401,
@@ -38,51 +20,43 @@ export default defineEventHandler(async (event) => {
 
   const secret = new TextEncoder().encode(jwtSecret)
 
+  let sub: string | undefined
+
   try {
     const { payload } = await jwtVerify(session.token.refreshToken, secret)
 
-    // ! DEMO accessToken故意設10秒就過期，方便測試refresh流程；正式環境請依需求調整(例如15分鐘)
-    const accessToken = await new SignJWT({
-      sub: payload.sub,
-    })
-      .setProtectedHeader({ alg: 'HS256' })
-      .setExpirationTime('10s')
-      .sign(secret)
-
-    const refreshToken = await new SignJWT({
-      sub: payload.sub,
-    })
-      .setProtectedHeader({ alg: 'HS256' })
-      .setExpirationTime('1d')
-      .sign(secret)
-
-    await setUserSession(event, {
-      // 不要展開...session(裡面還混了session.id，不該寫回session data)
-      user: session.user,
-      loggedInAt: session.loggedInAt,
-      token: {
-        accessToken: accessToken,
-        accessTokenExpiredAt: getExpiredAt(10),
-        refreshToken: refreshToken,
-        refreshTokenExpiredAt: getExpiredAt(86400),
-      },
-    })
+    sub = payload.sub
   } catch (err) {
-    if (err instanceof errors.JWTExpired) {
-      throw createError({ statusCode: 401, message: 'Token expired' })
+    switch (true) {
+      case err instanceof errors.JWTExpired:
+        throw createError({ statusCode: 401, message: 'JWT Expired' })
+      case err instanceof errors.JWTInvalid:
+        throw createError({ statusCode: 401, message: 'JWT Invalid' })
+      case err instanceof errors.JWSInvalid:
+        throw createError({ statusCode: 401, message: 'JWS Invalid' })
+      case err instanceof errors.JWSSignatureVerificationFailed:
+        throw createError({
+          statusCode: 401,
+          message: 'JWS Signature Verification Failed',
+        })
+      default:
+        throw createError({ statusCode: 500, message: 'Auth Error' })
     }
-    if (err instanceof errors.JWTInvalid || err instanceof errors.JWSInvalid) {
-      throw createError({ statusCode: 401, message: 'Invalid token' })
-    }
-    if (err instanceof errors.JWSSignatureVerificationFailed) {
-      throw createError({ statusCode: 401, message: 'Token tampered' })
-    }
-
-    throw createError({
-      statusCode: 500,
-      message: 'Auth Error',
-    })
   }
+
+  if (
+    // token沒有sub
+    !sub
+  ) {
+    throw createError({ statusCode: 401, message: 'Invalid token' })
+  }
+
+  await setUserSession(event, {
+    // 不要展開...session(裡面還混了session.id，不該寫回session data)
+    user: session.user,
+    loggedInAt: session.loggedInAt,
+    token: await createTokens(sub),
+  })
 
   console.log('refreshToken')
 
