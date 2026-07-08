@@ -5,8 +5,8 @@ export default defineEventHandler(async (event) => {
   const session = await requireUserSession(event)
 
   if (
-    // accessToken過期
-    isExpired(session.token.accessTokenExpiredAt)
+    // 沒有token 或 accessToken過期
+    isExpired(session.token?.accessTokenExpiredAt)
   ) {
     throw createError({
       statusCode: 401,

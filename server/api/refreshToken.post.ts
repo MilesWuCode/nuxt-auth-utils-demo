@@ -57,7 +57,9 @@ export default defineEventHandler(async (event) => {
       .sign(secret)
 
     await setUserSession(event, {
-      ...session,
+      // 不要展開...session(裡面還混了session.id，不該寫回session data)
+      user: session.user,
+      loggedInAt: session.loggedInAt,
       token: {
         accessToken: accessToken,
         accessTokenExpiredAt: getExpiredAt(10),
