@@ -1,7 +1,7 @@
 import * as z from 'zod'
 
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
+  const { user, token, loggedInAt } = await requireUserSession(event)
 
   const bodySchema = z.object({
     name: z.string('required').nonempty('required'),
@@ -10,10 +10,9 @@ export default defineEventHandler(async (event) => {
   const { name } = await readValidatedBody(event, bodySchema.parse)
 
   await setUserSession(event, {
-    // @ts-ignore
-    user: {
-      name: name,
-    },
+    user: { ...user, name },
+    token,
+    loggedInAt,
   })
 
   setResponseStatus(event, 200)

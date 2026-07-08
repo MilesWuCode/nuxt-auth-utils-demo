@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  // ! DEMO 假資料
   const user = {
     id: '1',
     name: 'miles',
@@ -29,6 +30,7 @@ export default defineEventHandler(async (event) => {
 
   const secret = new TextEncoder().encode(jwtSecret)
 
+  // ! DEMO accessToken故意設10秒就過期，方便測試refresh流程；正式環境請依需求調整(例如15分鐘)
   const accessToken = await new SignJWT({ sub: user.id })
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime('10s')

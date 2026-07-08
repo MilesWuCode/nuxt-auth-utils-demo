@@ -1,16 +1,13 @@
 export default defineEventHandler(async (event) => {
-  const session = await requireUserSession(event)
+  const { user, token, loggedInAt } = await requireUserSession(event)
 
-  await setUserSession(event, {
-    // @ts-ignore
-    user: {
-      fetched_at: Date.now(),
-    },
+  const session = await setUserSession(event, {
+    user: { ...user, fetched_at: Date.now() },
+    token,
+    loggedInAt,
   })
 
   setResponseStatus(event, 200)
 
-  return {
-    ...session?.user,
-  }
+  return session.user
 })

@@ -41,6 +41,7 @@ export default defineEventHandler(async (event) => {
   try {
     const { payload } = await jwtVerify(session.token.refreshToken, secret)
 
+    // ! DEMO accessToken故意設10秒就過期，方便測試refresh流程；正式環境請依需求調整(例如15分鐘)
     const accessToken = await new SignJWT({
       sub: payload.sub,
     })

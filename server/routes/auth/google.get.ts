@@ -22,6 +22,7 @@ export default defineOAuthGoogleEventHandler({
         email: user.email,
         fetched_at: Date.now(),
       },
+      // ! DEMO accessToken故意設15秒就過期，方便測試refresh流程；正式環境請依需求調整(例如15分鐘)
       token: {
         accessToken: randomString(),
         accessTokenExpiredAt: getExpiredAt(15),
