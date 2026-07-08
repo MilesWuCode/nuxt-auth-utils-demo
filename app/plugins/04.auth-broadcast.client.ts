@@ -13,15 +13,18 @@ export default defineNuxtPlugin(() => {
   authBroadcastChannel.onmessage = async (event) => {
     const data = event.data
 
-    if (data.action === 'login') {
-      reloadNuxtApp({ force: true })
-    } else if (data.action === 'logout') {
-      reloadNuxtApp({ force: true })
-    } else if (data.action === 'fetch-auth') {
-      await fetch()
-    } else if (data.action === 'fetch-user') {
-      await $fetch('/api/me')
-      await fetch()
+    switch (data.action) {
+      case 'login':
+      case 'logout':
+        reloadNuxtApp({ force: true })
+        break
+      case 'fetch-auth':
+        await fetch()
+        break
+      case 'fetch-user':
+        await $fetch('/api/me')
+        await fetch()
+        break
     }
   }
 })
