@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const { email, password } = await readValidatedBody(
     event,
     z.object({
-      email: z.string().email(),
+      email: z.email(),
       password: z.string().min(8),
     }).parse,
   )

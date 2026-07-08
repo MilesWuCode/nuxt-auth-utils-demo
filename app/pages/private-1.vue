@@ -16,6 +16,7 @@ useSeoMeta({
       <div class="flex gap-2">
         <RefreshTokenButton />
         <AuthFetchButton />
+        <AuthFetchErrorButton />
       </div>
 
       <UserData />
