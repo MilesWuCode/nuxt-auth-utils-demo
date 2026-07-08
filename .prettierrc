@@ -7,8 +7,8 @@
   "tabWidth": 2,
   "useTabs": false,
   "plugins": [
-    "@trivago/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss"
+    "prettier-plugin-tailwindcss",
+    "@trivago/prettier-plugin-sort-imports"
   ],
   "tailwindStylesheet": "./app/assets/css/main.css"
 }
