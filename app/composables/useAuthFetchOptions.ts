@@ -4,7 +4,7 @@
 export function useAuthFetchOptions() {
   return {
     async onRequest() {
-      const { session, fetch } = useUserSession()
+      const { session, fetch, clear } = useUserSession()
 
       if (
         // 有token、accessToken過期、refreshToken未過期才刷新
@@ -12,8 +12,13 @@ export function useAuthFetchOptions() {
         isExpired(session.value.token.accessTokenExpiredAt) &&
         !isExpired(session.value.token.refreshTokenExpiredAt)
       ) {
-        await $fetch('/api/refreshToken', { method: 'POST' })
-        await fetch()
+        try {
+          await $fetch('/api/refreshToken', { method: 'POST' })
+          await fetch()
+        } catch {
+          // refresh失敗就登出,讓原本的請求繼續打下去,交給onResponseError的401處理導回登入頁
+          await clear()
+        }
       }
     },
     async onResponseError({ response }: { response: Response }) {

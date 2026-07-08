@@ -38,16 +38,6 @@ export default defineNuxtRouteMiddleware(async () => {
     isExpired(session.value.token.accessTokenExpiredAt) &&
     !isExpired(session.value.token.refreshTokenExpiredAt)
   ) {
-    if (
-      // 第三方登入沒有refreshToken
-      session.value.token.refreshToken === ''
-    ) {
-      await clear()
-
-      // 離開middleware
-      return
-    }
-
     console.info('1.accessToken過期,refreshToken未過期')
 
     try {
