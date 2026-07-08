@@ -1,5 +1,3 @@
-import { getExpiredAt } from '#shared/utils/auth'
-import { SignJWT } from 'jose'
 import * as z from 'zod'
 
 export default defineEventHandler(async (event) => {
@@ -26,29 +24,9 @@ export default defineEventHandler(async (event) => {
     fetched_at: Date.now(),
   }
 
-  const { jwtSecret } = useRuntimeConfig()
-
-  const secret = new TextEncoder().encode(jwtSecret)
-
-  // ! DEMO accessToken故意設10秒就過期，方便測試refresh流程；正式環境請依需求調整(例如15分鐘)
-  const accessToken = await new SignJWT({ sub: user.id })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setExpirationTime('10s')
-    .sign(secret)
-
-  const refreshToken = await new SignJWT({ sub: user.id })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setExpirationTime('1d')
-    .sign(secret)
-
   await setUserSession(event, {
     user: user,
-    token: {
-      accessToken: accessToken,
-      accessTokenExpiredAt: getExpiredAt(10),
-      refreshToken: refreshToken,
-      refreshTokenExpiredAt: getExpiredAt(86400),
-    },
+    token: await createTokens(user.id),
     loggedInAt: Date.now(),
   })
 
