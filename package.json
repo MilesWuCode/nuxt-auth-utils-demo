@@ -25,15 +25,6 @@
     "vue-router": "^5.2.0",
     "zod": "^4.4.3"
   },
-  "allowScripts": {
-    "vue-demi@0.14.10": true,
-    "better-sqlite3@12.11.1": true,
-    "esbuild@0.27.7": true,
-    "esbuild@0.28.1": true,
-    "fsevents@2.3.3": true,
-    "unrs-resolver@1.12.2": true,
-    "@parcel/watcher@2.6.0": true
-  },
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",
     "@iconify-json/lucide": "^1.2.118",
@@ -46,5 +37,14 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.7"
+  },
+  "allowScripts": {
+    "vue-demi@0.14.10": true,
+    "better-sqlite3@12.11.1": true,
+    "esbuild@0.27.7": true,
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true,
+    "unrs-resolver@1.12.2": true,
+    "@parcel/watcher@2.6.0": true
   }
 }
