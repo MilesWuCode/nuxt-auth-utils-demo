@@ -19,6 +19,12 @@ export default defineOAuthAppleEventHandler({
       loggedInAt: Date.now(),
     })
 
+    // 通知其他分頁登入狀態變了，由 app/plugins/05.auth-cookie.client.ts 監看後 reloadNuxtApp
+    setCookie(event, 'authSuccess', Date.now().toString(), {
+      maxAge: 10,
+      path: '/',
+    })
+
     return sendRedirect(event, redirectedFrom)
   },
   // Optional, will return a json error and 401 status code by default

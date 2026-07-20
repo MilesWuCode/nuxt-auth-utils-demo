@@ -1,4 +1,4 @@
-import { getCookie } from 'h3'
+import { getCookie, setCookie } from 'h3'
 
 export default defineOAuthGoogleEventHandler({
   config: {
@@ -23,6 +23,12 @@ export default defineOAuthGoogleEventHandler({
       },
       token: await createTokens(user.sub),
       loggedInAt: Date.now(),
+    })
+
+    // 通知其他分頁登入狀態變了，由 app/plugins/05.auth-cookie.client.ts 監看後 reloadNuxtApp
+    setCookie(event, 'authSuccess', Date.now().toString(), {
+      maxAge: 10,
+      path: '/',
     })
 
     return sendRedirect(event, redirectedFrom)
