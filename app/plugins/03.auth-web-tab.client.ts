@@ -3,26 +3,28 @@
 // 再用useUserSession的fetch更新會員資料
 
 export default defineNuxtPlugin(() => {
-  const isVisible = ref(true)
-
   const handleVisibilityChange = async () => {
-    isVisible.value = document.visibilityState === 'visible'
+    if (
+      // 不是切回前景就不用管
+      document.visibilityState !== 'visible'
+    ) {
+      return
+    }
 
     const { loggedIn, fetch } = useUserSession()
 
+    if (
+      // 沒登入就不用管
+      !loggedIn.value
+    ) {
+      return
+    }
+
     try {
-      if (
-        // 返回瀏覽器 和 有登入
-        loggedIn.value &&
-        isVisible.value
-      ) {
-        await $fetch('/api/me')
-        await fetch()
-      } else {
-        // console.log("會員離開瀏覽器");
-      }
+      await $fetch('/api/me')
+      await fetch()
     } catch {
-      reloadNuxtApp()
+      reloadNuxtApp({ force: true })
     }
   }
 
