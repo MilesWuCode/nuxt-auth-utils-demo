@@ -31,6 +31,12 @@ export default defineOAuthGoogleEventHandler({
   onError(event, error) {
     console.error('Google OAuth error:', error)
 
-    return sendRedirect(event, '/')
+    // flash message
+    setCookie(event, 'authError', 'error-0001', {
+      maxAge: 10,
+      path: '/',
+    })
+
+    return sendRedirect(event, '/login')
   },
 })
