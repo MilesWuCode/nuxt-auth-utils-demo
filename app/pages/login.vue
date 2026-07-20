@@ -14,7 +14,7 @@ const { redirectedFrom } = useRedirectedFrom()
 const { fetch } = useUserSession()
 const authBroadcastChannel = new BroadcastChannel('auth')
 
-// flash 訊息：讀取一次後清除 cookie，不留在網址上
+// flash message
 const authErrorCookie = useCookie('authError')
 const oauthErrorCode = authErrorCookie.value
 
