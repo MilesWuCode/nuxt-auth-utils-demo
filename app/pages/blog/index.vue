@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const limit = 1
+const limit = 6
 const currentPage = computed(() => parseInt(route.query.page as string) || 1)
 
 const { data: total } = await useAsyncData('blog-count', () => {
@@ -36,27 +36,30 @@ function to(page: number) {
     <UPageBody>
       <UContainer>
         <UEmpty
+          v-if="!posts?.length"
           icon="i-lucide-file"
           title="No Blog found"
           description="It looks like you haven't added any blogs. Create one to get started."
         />
 
-        <UBlogPosts>
-          <UBlogPost
-            v-for="(post, index) in posts"
-            :key="index"
-            v-bind="post"
-            :to="post.path"
-          />
-        </UBlogPosts>
+        <template v-else>
+          <UBlogPosts>
+            <UBlogPost
+              v-for="(post, index) in posts"
+              :key="index"
+              v-bind="post"
+              :to="post.path"
+            />
+          </UBlogPosts>
 
-        <UPagination
-          v-model:page="currentPage"
-          :total="total || 0"
-          :items-per-page="limit"
-          :to="to"
-          class="flex justify-center"
-        />
+          <UPagination
+            v-model:page="currentPage"
+            :total="total || 0"
+            :items-per-page="limit"
+            :to="to"
+            :ui="{ root: 'flex justify-center mt-8' }"
+          />
+        </template>
       </UContainer>
     </UPageBody>
   </UPage>
