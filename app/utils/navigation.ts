@@ -21,6 +21,11 @@ export const siteNavigation = {
             icon: 'i-lucide-house',
             to: '/guest',
           },
+          {
+            label: 'Blog',
+            icon: 'i-lucide-house',
+            to: '/blog',
+          },
         ],
       },
       {
