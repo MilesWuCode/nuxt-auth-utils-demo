@@ -43,12 +43,12 @@ function to(page: number) {
         />
 
         <template v-else>
-          <UBlogPosts>
+          <UBlogPosts :ui="{ base: 'lg:gap-y-8' }">
             <UBlogPost
               v-for="(post, index) in posts"
               :key="index"
               v-bind="post"
-              :to="post.path"
+              :to="{ path: post.path, query: { page: currentPage } }"
             />
           </UBlogPosts>
 
