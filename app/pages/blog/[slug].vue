@@ -1,15 +1,18 @@
 <script setup lang="ts">
-const route = useRoute()
-const slug = route.params.slug
+const router = useRouter()
+const slug = useRoute().params.slug
 
 const { data } = await useAsyncData(`blog-${slug}`, () =>
   queryCollection('blog').path(`/blog/${slug}`).first(),
 )
 
-const backTo = computed(() => ({
-  path: '/blog',
-  query: route.query.page ? { page: route.query.page } : undefined,
-}))
+function goBack() {
+  if (import.meta.client && window.history.state?.back) {
+    router.back()
+  } else {
+    router.push('/blog')
+  }
+}
 
 const formattedDate = computed(() => {
   if (!data.value?.date) return null
@@ -26,13 +29,13 @@ const formattedDate = computed(() => {
     <UPageHeader :title="data.title" :description="data.description">
       <template #headline>
         <UButton
-          :to="backTo"
           label="Back to blog"
           icon="i-lucide-arrow-left"
           variant="link"
           color="neutral"
           size="sm"
           class="p-0"
+          @click="goBack"
         />
       </template>
 

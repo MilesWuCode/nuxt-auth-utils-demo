@@ -24,7 +24,7 @@ const { data: posts } = await useAsyncData(
 function to(page: number) {
   return {
     query: {
-      page,
+      page: page > 1 ? page : undefined,
     },
   }
 }
@@ -48,7 +48,7 @@ function to(page: number) {
               v-for="(post, index) in posts"
               :key="index"
               v-bind="post"
-              :to="{ path: post.path, query: { page: currentPage } }"
+              :to="post.path"
             />
           </UBlogPosts>
 
