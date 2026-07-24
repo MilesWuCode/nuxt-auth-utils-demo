@@ -4,16 +4,14 @@
 
 export default defineNuxtPlugin(() => {
   const authSuccessCookie = useCookie('authSuccess')
-  const { loggedIn } = useUserSession()
+  const authBroadcastChannel = useAuthBroadcastChannel()
 
   watch(authSuccessCookie, (value) => {
     if (!value) return
 
-    // 已經登入的頁面不需要reload，若沒有等待1秒，原分頁會換到首頁
-    setTimeout(() => {
-      if (loggedIn.value) return
-
-      reloadNuxtApp({ force: true })
-    }, 1000)
+    // 因為cookie是全域的，所以全部分頁都會收到
+    authBroadcastChannel.postMessage({
+      action: 'login',
+    })
   })
 })

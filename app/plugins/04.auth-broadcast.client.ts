@@ -6,7 +6,7 @@
 // 更新用戶資料寫入`fetch-user`
 
 export default defineNuxtPlugin(() => {
-  const { fetch } = useUserSession()
+  const { loggedIn, fetch } = useUserSession()
 
   const authBroadcastChannel = useAuthBroadcastChannel()
 
@@ -15,8 +15,10 @@ export default defineNuxtPlugin(() => {
 
     switch (data.action) {
       case 'login':
+        if (loggedIn.value === false) reloadNuxtApp({ force: true })
+        break
       case 'logout':
-        reloadNuxtApp({ force: true })
+        if (loggedIn.value === true) reloadNuxtApp({ force: true })
         break
       case 'fetch-auth':
         await fetch()

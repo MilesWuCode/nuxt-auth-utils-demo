@@ -25,7 +25,7 @@ export default defineOAuthGoogleEventHandler({
       loggedInAt: Date.now(),
     })
 
-    // 寫入cookie，通知所有分頁登入狀態變了，由 app/plugins/05.auth-cookie.client.ts 監看後 reloadNuxtApp
+    // 因為cookie是全域的，由 app/plugins/05.auth-cookie.client.ts 監看後Broadcast通知所有分頁
     setCookie(event, 'authSuccess', Date.now().toString(), {
       maxAge: 10,
       path: '/',
