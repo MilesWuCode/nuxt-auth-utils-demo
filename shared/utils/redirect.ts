@@ -1,7 +1,7 @@
 // 允許導轉的外站 origin 白名單(給活動頁等外站導轉使用)
 export const trustedRedirectOrigins = [
   'http://localhost:3000',
-  'http://www.miles.io',
+  'https://www.google.com',
 ]
 
 // 驗證redirectedFrom是否可信任:站內相對路徑(非//開頭) 或 白名單origin,其餘一律fallback成'/'

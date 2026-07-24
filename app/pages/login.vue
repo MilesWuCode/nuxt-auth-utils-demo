@@ -91,7 +91,9 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
 
       authBroadcastChannel.postMessage({ action: 'login' })
 
-      await navigateTo(redirectedFrom.value)
+      await navigateTo(redirectedFrom.value, {
+        external: !redirectedFrom.value.startsWith('/'),
+      })
     })
     .catch((err) => {
       console.log(err)

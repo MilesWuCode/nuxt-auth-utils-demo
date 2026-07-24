@@ -8,7 +8,13 @@ const { data } = await useAsyncData(`blog-${slug}`, () =>
 
 function goBack() {
   if (import.meta.client && window.history.state?.back) {
-    router.back()
+    const url = new URL(window.history.state.back, window.location.origin)
+
+    if (url.pathname === '/blog') {
+      router.back()
+    } else {
+      router.push('/blog')
+    }
   } else {
     router.push('/blog')
   }
@@ -63,7 +69,14 @@ const formattedDate = computed(() => {
       icon="i-lucide-file-question"
       title="Post not found"
       description="The blog post you're looking for doesn't exist."
-      :actions="[{ label: 'Back to blog', to: '/blog', color: 'neutral', variant: 'subtle' }]"
+      :actions="[
+        {
+          label: 'Back to blog',
+          to: '/blog',
+          color: 'neutral',
+          variant: 'subtle',
+        },
+      ]"
       class="py-16"
     />
   </UContainer>
