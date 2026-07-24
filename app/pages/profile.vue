@@ -12,7 +12,7 @@ useSeoMeta({
 
 const { session } = useUserSession()
 const { $api } = useNuxtApp()
-const authBroadcastChannel = new BroadcastChannel('auth')
+const authBroadcastChannel = useAuthBroadcastChannel()
 
 const schema = z.object({
   name: z.string('required').nonempty('required'),

@@ -8,7 +8,7 @@
 export default defineNuxtPlugin(() => {
   const { fetch } = useUserSession()
 
-  const authBroadcastChannel = new BroadcastChannel('auth')
+  const authBroadcastChannel = useAuthBroadcastChannel()
 
   authBroadcastChannel.onmessage = async (event) => {
     const data = event.data

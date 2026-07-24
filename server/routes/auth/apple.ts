@@ -3,7 +3,7 @@ import { getCookie, setCookie } from 'h3'
 export default defineOAuthAppleEventHandler({
   async onSuccess(event, { user, tokens }) {
     // cookie取返回頁路徑
-    const redirectedFrom = getCookie(event, 'redirectedFrom') ?? '/'
+    const redirectedFrom = sanitizeRedirect(getCookie(event, 'redirectedFrom'))
 
     console.log(user)
     console.log(tokens.id_token)

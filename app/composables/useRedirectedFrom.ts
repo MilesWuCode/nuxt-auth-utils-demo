@@ -11,13 +11,18 @@ export function useRedirectedFrom() {
       route.query.redirectedFrom?.toString() ||
       '/'
 
-    return path
+    // 過濾掉非站內路徑/非白名單origin,避免open redirect
+    return sanitizeRedirect(path)
   })
 
-  // 更新cookie
-  watch(redirectedFrom, (val) => {
-    redirectedFromCookie.value = val
-  })
+  // 更新cookie(immediate:true,不然剛進頁面時的初始值不會被寫入)
+  watch(
+    redirectedFrom,
+    (val) => {
+      redirectedFromCookie.value = val
+    },
+    { immediate: true },
+  )
 
   return { redirectedFrom }
 }

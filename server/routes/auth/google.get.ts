@@ -8,7 +8,7 @@ export default defineOAuthGoogleEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     // cookie取返回頁路徑
-    const redirectedFrom = getCookie(event, 'redirectedFrom') ?? '/'
+    const redirectedFrom = sanitizeRedirect(getCookie(event, 'redirectedFrom'))
 
     console.log(user)
     console.log(tokens.access_token)

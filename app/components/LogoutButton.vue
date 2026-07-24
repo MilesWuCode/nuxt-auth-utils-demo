@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { loggedIn, clear, user } = useUserSession()
 
-const authBroadcastChannel = new BroadcastChannel('auth')
+const authBroadcastChannel = useAuthBroadcastChannel()
 
 const onClick = async () => {
   await clear()

@@ -12,7 +12,7 @@ useSeoMeta({
 
 const { redirectedFrom } = useRedirectedFrom()
 const { fetch } = useUserSession()
-const authBroadcastChannel = new BroadcastChannel('auth')
+const authBroadcastChannel = useAuthBroadcastChannel()
 
 // flash message
 const authErrorCookie = useCookie('authError')
