@@ -7,6 +7,7 @@ export default defineNuxtPlugin(() => {
   const authBroadcastChannel = useAuthBroadcastChannel()
 
   watch(authSuccessCookie, (value) => {
+    // 登入成功
     if (!value) return
 
     // 因為cookie是全域的，所以全部分頁都會收到
