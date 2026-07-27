@@ -6,6 +6,13 @@ const { data } = await useAsyncData(`blog-${slug}`, () =>
   queryCollection('blog').path(`/blog/${slug}`).first(),
 )
 
+const { data: surround } = await useAsyncData(`blog-surround-${slug}`, () =>
+  queryCollectionItemSurroundings('blog', `/blog/${slug}`).order('date', 'DESC'),
+)
+
+const prevPost = computed(() => surround.value?.[0] ?? null)
+const nextPost = computed(() => surround.value?.[1] ?? null)
+
 function goBack() {
   if (import.meta.client && window.history.state?.back) {
     const url = new URL(window.history.state.back, window.location.origin)
@@ -60,6 +67,8 @@ const formattedDate = computed(() => {
     <UPageBody>
       <UContainer>
         <ContentRenderer id="content" :value="data" class="max-w-3xl mx-auto" />
+
+        <BlogPostSurroundings :prev="prevPost" :next="nextPost" />
       </UContainer>
     </UPageBody>
   </UPage>
