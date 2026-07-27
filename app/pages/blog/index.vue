@@ -23,6 +23,7 @@ const { data: posts } = await useAsyncData(
 
 function to(page: number) {
   return {
+    path: '/blog',
     query: {
       page: page > 1 ? page : undefined,
     },
