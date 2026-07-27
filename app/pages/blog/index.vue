@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const limit = 6
+const limit = useAppConfig().blog.pageSize
 const currentPage = computed(() => parseInt(route.query.page as string) || 1)
 
 const { data: total } = await useAsyncData('blog-count', () => {

@@ -1,31 +1,37 @@
 <script setup lang="ts">
-const router = useRouter()
 const slug = useRoute().params.slug
+const pageSize = useAppConfig().blog.pageSize
 
 const { data } = await useAsyncData(`blog-${slug}`, () =>
   queryCollection('blog').path(`/blog/${slug}`).first(),
 )
 
 const { data: surround } = await useAsyncData(`blog-surround-${slug}`, () =>
-  queryCollectionItemSurroundings('blog', `/blog/${slug}`).order('date', 'DESC'),
+  queryCollectionItemSurroundings('blog', `/blog/${slug}`).order(
+    'date',
+    'DESC',
+  ),
 )
 
 const prevPost = computed(() => surround.value?.[0] ?? null)
 const nextPost = computed(() => surround.value?.[1] ?? null)
 
-function goBack() {
-  if (import.meta.client && window.history.state?.back) {
-    const url = new URL(window.history.state.back, window.location.origin)
+const { data: postsBefore } = await useAsyncData(
+  `blog-position-${slug}`,
+  () => {
+    if (!data.value?.date) return Promise.resolve(0)
+    return queryCollection('blog').where('date', '>', data.value.date).count()
+  },
+)
 
-    if (url.pathname === '/blog') {
-      router.back()
-    } else {
-      router.push('/blog')
-    }
-  } else {
-    router.push('/blog')
-  }
-}
+const listPage = computed(() =>
+  postsBefore.value ? Math.floor(postsBefore.value / pageSize) + 1 : 1,
+)
+
+const backToBlog = computed(() => ({
+  path: '/blog',
+  query: { page: listPage.value > 1 ? listPage.value : undefined },
+}))
 
 const formattedDate = computed(() => {
   if (!data.value?.date) return null
@@ -48,7 +54,7 @@ const formattedDate = computed(() => {
           color="neutral"
           size="sm"
           class="p-0"
-          @click="goBack"
+          :to="backToBlog"
         />
       </template>
 
