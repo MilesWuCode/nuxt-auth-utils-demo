@@ -25,6 +25,7 @@ export const siteNavigation = {
             label: 'Blog',
             icon: 'i-lucide-house',
             to: '/blog',
+            exactHash: true,
           },
         ],
       },
