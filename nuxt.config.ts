@@ -61,4 +61,8 @@ export default defineNuxtConfig({
     },
     plugins: [tailwindcss()],
   },
+
+  content: {
+    experimental: { sqliteConnector: 'native' },
+  },
 })
