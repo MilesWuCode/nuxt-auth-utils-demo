@@ -61,11 +61,4 @@ export default defineNuxtConfig({
     },
     plugins: [tailwindcss()],
   },
-
-  content: {
-    database: {
-      type: 'sqlite',
-      filename: '/tmp/contents.sqlite',
-    },
-  },
 })
