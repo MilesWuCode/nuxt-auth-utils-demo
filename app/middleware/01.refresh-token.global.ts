@@ -50,8 +50,11 @@ export default defineNuxtRouteMiddleware(async () => {
             for (const setCookie of headers.getSetCookie()) {
               appendResponseHeader(serverEvent, 'Set-Cookie', setCookie)
               // Update session cookie for next fetch requests
-              const { name, value } = parseSetCookie(setCookie)
-              if (name === runtimeConfig.session.name) {
+              const parseCookie = parseSetCookie(setCookie)
+              const name = parseCookie?.name
+              const value = parseCookie?.value
+
+              if (name && value && name === runtimeConfig.session.name) {
                 // console.log('updating headers.cookie to', value)
                 const cookies = parse(serverEvent.headers.get('cookie') || '')
                 // set or overwrite existing cookie
