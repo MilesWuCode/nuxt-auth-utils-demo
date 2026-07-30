@@ -1,8 +1,8 @@
 ---
-title: "Ctrl+Alt+Delete Your Bad Habits: A Digital Detox Guide"
-description: "How to reclaim your attention span in a world designed to steal it."
+title: 'Ctrl+Alt+Delete Your Bad Habits: A Digital Detox Guide'
+description: 'How to reclaim your attention span in a world designed to steal it.'
 date: 2025-12-24
-tags: ["tech", "wellness"]
+tags: ['tech', 'wellness']
 image: ''
 ---
 

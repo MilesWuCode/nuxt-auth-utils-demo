@@ -1,8 +1,8 @@
 ---
-title: "Like, Comment, Subscribe: Surviving the Algorithm"
-description: "A field guide to staying sane while everything online begs for your attention."
+title: 'Like, Comment, Subscribe: Surviving the Algorithm'
+description: 'A field guide to staying sane while everything online begs for your attention.'
 date: 2026-03-18
-tags: ["tech", "social-media"]
+tags: ['tech', 'social-media']
 image: ''
 ---
 

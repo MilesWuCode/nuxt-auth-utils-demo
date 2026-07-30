@@ -1,8 +1,8 @@
 ---
-title: "Sweat Equity: Why Skipping Leg Day Is Costing You More Than You Think"
-description: "The case for balanced workouts, told through the eyes of someone who learned the hard way."
+title: 'Sweat Equity: Why Skipping Leg Day Is Costing You More Than You Think'
+description: 'The case for balanced workouts, told through the eyes of someone who learned the hard way.'
 date: 2025-11-15
-tags: ["health", "fitness"]
+tags: ['health', 'fitness']
 image: ''
 ---
 

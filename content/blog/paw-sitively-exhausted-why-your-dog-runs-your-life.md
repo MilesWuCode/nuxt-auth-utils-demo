@@ -1,8 +1,8 @@
 ---
-title: "Paw-sitively Exhausted: Why Your Dog Runs Your Life"
-description: "An investigation into how a 12-pound animal became the household CEO."
+title: 'Paw-sitively Exhausted: Why Your Dog Runs Your Life'
+description: 'An investigation into how a 12-pound animal became the household CEO.'
 date: 2026-01-07
-tags: ["pets", "humor"]
+tags: ['pets', 'humor']
 image: ''
 ---
 

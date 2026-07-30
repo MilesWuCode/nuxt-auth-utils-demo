@@ -1,8 +1,8 @@
 ---
-title: "Pajama Professional: The Realities of Working From Bed"
-description: "The pros, cons, and back pain of taking remote work a little too literally."
+title: 'Pajama Professional: The Realities of Working From Bed'
+description: 'The pros, cons, and back pain of taking remote work a little too literally.'
 date: 2026-04-15
-tags: ["work", "remote"]
+tags: ['work', 'remote']
 image: ''
 ---
 

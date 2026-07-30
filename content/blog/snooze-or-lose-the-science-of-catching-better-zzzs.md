@@ -1,8 +1,8 @@
 ---
 title: "Snooze or Lose: The Science of Catching Better Zzz's"
-description: "Everything you think you know about sleep is wrong. Here is what actually helps you rest."
+description: 'Everything you think you know about sleep is wrong. Here is what actually helps you rest.'
 date: 2025-09-20
-tags: ["health", "sleep"]
+tags: ['health', 'sleep']
 image: ''
 ---
 

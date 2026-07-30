@@ -1,8 +1,8 @@
 ---
-title: "Leaf It to Us: Why Your Houseplants Keep Dying (And How to Stop It)"
-description: "A brutally honest guide to keeping your plants alive longer than two weeks."
+title: 'Leaf It to Us: Why Your Houseplants Keep Dying (And How to Stop It)'
+description: 'A brutally honest guide to keeping your plants alive longer than two weeks.'
 date: 2025-10-03
-tags: ["lifestyle", "plants"]
+tags: ['lifestyle', 'plants']
 image: ''
 ---
 

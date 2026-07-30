@@ -1,8 +1,8 @@
 ---
-title: "Marie Kondo Would Be Proud: Decluttering Without the Guilt Trip"
-description: "A gentler take on tidying up that does not require thanking your socks."
+title: 'Marie Kondo Would Be Proud: Decluttering Without the Guilt Trip'
+description: 'A gentler take on tidying up that does not require thanking your socks.'
 date: 2026-04-01
-tags: ["lifestyle", "home"]
+tags: ['lifestyle', 'home']
 image: ''
 ---
 

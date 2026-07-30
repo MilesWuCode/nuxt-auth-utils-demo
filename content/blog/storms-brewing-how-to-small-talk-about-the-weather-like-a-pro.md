@@ -1,8 +1,8 @@
 ---
 title: "Storm's Brewing: How to Small Talk About the Weather Like a Pro"
-description: "The underrated art of weather chat, ranked by region and awkwardness."
+description: 'The underrated art of weather chat, ranked by region and awkwardness.'
 date: 2026-03-04
-tags: ["lifestyle", "humor"]
+tags: ['lifestyle', 'humor']
 image: ''
 ---
 

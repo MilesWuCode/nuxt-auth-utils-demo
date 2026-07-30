@@ -1,8 +1,8 @@
 ---
-title: "Playlist Personality: What Your Spotify Wrapped Says About You"
-description: "A deep, mostly unscientific dive into music taste and self-image."
+title: 'Playlist Personality: What Your Spotify Wrapped Says About You'
+description: 'A deep, mostly unscientific dive into music taste and self-image.'
 date: 2026-02-04
-tags: ["music", "humor"]
+tags: ['music', 'humor']
 image: ''
 ---
 

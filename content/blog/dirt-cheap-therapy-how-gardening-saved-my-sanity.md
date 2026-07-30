@@ -1,8 +1,8 @@
 ---
-title: "Dirt Cheap Therapy: How Gardening Saved My Sanity"
-description: "One writer on why digging in the dirt beats another therapy app subscription."
+title: 'Dirt Cheap Therapy: How Gardening Saved My Sanity'
+description: 'One writer on why digging in the dirt beats another therapy app subscription.'
 date: 2026-01-21
-tags: ["lifestyle", "gardening"]
+tags: ['lifestyle', 'gardening']
 image: ''
 ---
 

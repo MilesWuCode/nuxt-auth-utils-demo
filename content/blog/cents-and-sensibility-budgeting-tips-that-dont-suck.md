@@ -1,8 +1,8 @@
 ---
 title: "Cents and Sensibility: Budgeting Tips That Don't Suck"
-description: "A no-nonsense approach to personal finance for people who hate spreadsheets."
+description: 'A no-nonsense approach to personal finance for people who hate spreadsheets.'
 date: 2025-12-10
-tags: ["finance"]
+tags: ['finance']
 image: ''
 ---
 

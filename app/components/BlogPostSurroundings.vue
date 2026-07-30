@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-  prev?: { path: string, title: string } | null
-  next?: { path: string, title: string } | null
+  prev?: { path: string; title: string } | null
+  next?: { path: string; title: string } | null
 }>()
 </script>
 

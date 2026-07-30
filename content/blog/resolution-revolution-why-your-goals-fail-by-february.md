@@ -1,8 +1,8 @@
 ---
-title: "Resolution Revolution: Why Your Goals Fail by February"
-description: "The psychology behind broken resolutions, and a better way to set goals."
+title: 'Resolution Revolution: Why Your Goals Fail by February'
+description: 'The psychology behind broken resolutions, and a better way to set goals.'
 date: 2026-05-06
-tags: ["productivity", "health"]
+tags: ['productivity', 'health']
 image: ''
 ---
 

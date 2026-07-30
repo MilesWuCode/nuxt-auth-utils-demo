@@ -1,8 +1,8 @@
 ---
-title: "Judge a Book by Its Cover (And Other Lies We Tell Ourselves)"
-description: "Why we all do it anyway, and a few covers that actually delivered."
+title: 'Judge a Book by Its Cover (And Other Lies We Tell Ourselves)'
+description: 'Why we all do it anyway, and a few covers that actually delivered.'
 date: 2026-02-18
-tags: ["books"]
+tags: ['books']
 image: ''
 ---
 

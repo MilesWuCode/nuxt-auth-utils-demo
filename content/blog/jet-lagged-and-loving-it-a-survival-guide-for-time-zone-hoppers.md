@@ -1,8 +1,8 @@
 ---
-title: "Jet Lagged and Loving It: A Survival Guide for Time-Zone Hoppers"
-description: "Practical tricks for resetting your body clock after a long-haul flight."
+title: 'Jet Lagged and Loving It: A Survival Guide for Time-Zone Hoppers'
+description: 'Practical tricks for resetting your body clock after a long-haul flight.'
 date: 2025-11-29
-tags: ["travel"]
+tags: ['travel']
 image: ''
 ---
 

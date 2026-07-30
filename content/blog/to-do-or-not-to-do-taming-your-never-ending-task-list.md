@@ -1,8 +1,8 @@
 ---
-title: "To-Do or Not To-Do: Taming Your Never-Ending Task List"
-description: "Productivity hacks that actually work, minus the toxic hustle culture."
+title: 'To-Do or Not To-Do: Taming Your Never-Ending Task List'
+description: 'Productivity hacks that actually work, minus the toxic hustle culture.'
 date: 2025-10-18
-tags: ["productivity"]
+tags: ['productivity']
 image: ''
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: "Whisk Business: Kitchen Fails Everyone Secretly Relates To"
-description: "A celebration of burnt toast, collapsed soufflés, and other kitchen disasters."
+title: 'Whisk Business: Kitchen Fails Everyone Secretly Relates To'
+description: 'A celebration of burnt toast, collapsed soufflés, and other kitchen disasters.'
 date: 2025-11-01
-tags: ["cooking", "humor"]
+tags: ['cooking', 'humor']
 image: ''
 ---
 
