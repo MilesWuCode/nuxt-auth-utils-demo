@@ -40,13 +40,5 @@ export default withNuxt({
         registeredComponentsOnly: false,
       },
     ],
-    // 'vue/first-attribute-linebreak': [
-    //   // 第一個屬性要換行
-    //   'error',
-    //   {
-    //     singleline: 'ignore',
-    //     multiline: 'below',
-    //   },
-    // ],
   },
 })
