@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/eslint',
     '@nuxt/content',
+    '@vueuse/nuxt',
   ],
 
   // wip

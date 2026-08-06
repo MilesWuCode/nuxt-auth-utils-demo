@@ -1,34 +1,24 @@
 <script setup lang="ts">
-const route = useRoute()
 const limit = useAppConfig().blog.pageSize
-const currentPage = computed(() => parseInt(route.query.page as string) || 1)
+const page = useRouteQuery('page', '1', { transform: Number })
 
 const { data: total } = await useAsyncData('blog-count', () => {
   return queryCollection('blog').count()
 })
 
 const { data: posts } = await useAsyncData(
-  `blog-list-${currentPage.value}`,
+  `blog-list-${page.value}`,
   () => {
     return queryCollection('blog')
       .order('date', 'DESC')
       .limit(limit)
-      .skip((currentPage.value - 1) * limit)
+      .skip((page.value - 1) * limit)
       .all()
   },
   {
-    watch: [currentPage],
+    watch: [page],
   },
 )
-
-function to(page: number) {
-  return {
-    path: '/blog',
-    query: {
-      page: page > 1 ? page : undefined,
-    },
-  }
-}
 </script>
 
 <template>
@@ -54,10 +44,9 @@ function to(page: number) {
           </UBlogPosts>
 
           <UPagination
-            v-model:page="currentPage"
+            v-model:page="page"
             :total="total || 0"
             :items-per-page="limit"
-            :to="to"
             :ui="{ root: 'flex justify-center mt-8' }"
           />
         </template>
