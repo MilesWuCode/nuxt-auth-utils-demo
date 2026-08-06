@@ -19,6 +19,9 @@ watch(
 )
 
 useHead({
+  htmlAttrs: {
+    lang: 'zh-Hant',
+  },
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} - Site Title` : 'Site Title'
   },
