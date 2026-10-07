@@ -96,9 +96,9 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
       })
     })
     .catch((err) => {
-      console.log(err)
+      console.dir(err)
 
-      console.log(err.data?.message || err.message)
+      console.log(err.statusMessage)
     })
 }
 </script>

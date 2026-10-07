@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
     isExpired(session.token.refreshTokenExpiredAt)
   ) {
     throw createError({
-      statusCode: 401,
-      message: 'Invalid credentials',
+      status: 401,
+      statusText: 'Invalid credentials',
     })
   }
 
@@ -29,18 +29,18 @@ export default defineEventHandler(async (event) => {
   } catch (err) {
     switch (true) {
       case err instanceof errors.JWTExpired:
-        throw createError({ statusCode: 401, message: 'JWT Expired' })
+        throw createError({ status: 401, statusText: 'JWT Expired' })
       case err instanceof errors.JWTInvalid:
-        throw createError({ statusCode: 401, message: 'JWT Invalid' })
+        throw createError({ status: 401, statusText: 'JWT Invalid' })
       case err instanceof errors.JWSInvalid:
-        throw createError({ statusCode: 401, message: 'JWS Invalid' })
+        throw createError({ status: 401, statusText: 'JWS Invalid' })
       case err instanceof errors.JWSSignatureVerificationFailed:
         throw createError({
-          statusCode: 401,
-          message: 'JWS Signature Verification Failed',
+          status: 401,
+          statusText: 'JWS Signature Verification Failed',
         })
       default:
-        throw createError({ statusCode: 500, message: 'Auth Error' })
+        throw createError({ status: 500, statusText: 'Auth Error' })
     }
   }
 
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     // token沒有sub
     !sub
   ) {
-    throw createError({ statusCode: 401, message: 'Invalid token' })
+    throw createError({ status: 401, statusText: 'Invalid token' })
   }
 
   await setUserSession(event, {

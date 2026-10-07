@@ -9,8 +9,8 @@ export default defineEventHandler(async (event) => {
     isExpired(session.token?.accessTokenExpiredAt)
   ) {
     throw createError({
-      statusCode: 401,
-      message: 'Invalid credentials',
+      status: 401,
+      statusText: 'Invalid credentials',
     })
   }
 

@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
 
   if (email !== 'user@email.com' || password !== 'password') {
     throw createError({
-      statusCode: 401,
-      message: 'Invalid credentials',
+      status: 401,
+      statusText: 'Invalid credentials',
     })
   }
 

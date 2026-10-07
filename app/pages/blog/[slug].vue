@@ -72,7 +72,7 @@ const formattedDate = computed(() => {
 
     <UPageBody>
       <UContainer>
-        <ContentRenderer id="content" :value="data" class="max-w-3xl mx-auto" />
+        <ContentRenderer id="content" :value="data" class="mx-auto max-w-3xl" />
 
         <BlogPostSurroundings :prev="prevPost" :next="nextPost" />
       </UContainer>
