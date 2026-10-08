@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui'
+import type { NavigationMenuItem, ToasterProps } from '@nuxt/ui'
 
 const items = ref<NavigationMenuItem[][]>(siteNavigation.menu)
 
-const toaster = {
-  position: 'top-right' as const,
+const toaster: ToasterProps = {
+  position: 'top-right',
 }
 
 const route = useRoute()
