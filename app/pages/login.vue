@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
+import type { FormSubmitEvent, AuthFormField, ButtonProps } from '@nuxt/ui'
+import { FetchError } from 'ofetch'
 import * as z from 'zod'
 
 definePageMeta({
@@ -17,6 +18,10 @@ const authBroadcastChannel = useAuthBroadcastChannel()
 // flash message
 const authErrorCookie = useCookie('authError')
 const oauthErrorCode = authErrorCookie.value
+
+const message = ref('')
+const form = useTemplateRef('form')
+const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 
 // 要等 hydration 完成再清，不然 SSR 輸出跟 client 首次渲染的內容對不上，會出現 hydration mismatch
 onMounted(() => {
@@ -49,7 +54,7 @@ const fields: AuthFormField[] = [
 
 const origin = useRequestURL().origin
 
-const providers = [
+const providers = ref<ButtonProps[]>([
   {
     label: 'Apple',
     icon: 'i-simple-icons-apple',
@@ -65,7 +70,7 @@ const providers = [
     icon: 'i-simple-icons-google',
     to: `${origin}/auth/google`,
   },
-]
+])
 
 const schema = z.object({
   email: z.email('Invalid email'),
@@ -79,7 +84,10 @@ type Schema = z.output<typeof schema>
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   console.log('Submitted', payload)
 
-  await $fetch('/api/login', {
+  status.value = 'loading'
+
+  // wip
+  $fetch('/api/login', {
     method: 'POST',
     body: {
       email: payload.data.email,
@@ -95,10 +103,36 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         external: !redirectedFrom.value.startsWith('/'),
       })
     })
-    .catch((err) => {
-      console.dir(err)
+    .catch((error) => {
+      if (error instanceof FetchError) {
+        // 欄位
+        if (error.status === 422) {
+          const errors = error.data?.data?.fieldErrors ?? {}
 
-      console.log(err.statusMessage)
+          form.value?.formRef?.setErrors(
+            Object.entries(errors).flatMap(([key, messages]) => {
+              if (!Array.isArray(messages) || typeof messages[0] !== 'string') {
+                return []
+              }
+
+              return [{ name: key, message: messages[0] }]
+            }),
+          )
+
+          return
+        }
+
+        switch (error.status) {
+          case 400:
+          case 401:
+            message.value = error.data?.message ?? '伺服器錯誤，請稍後再試'
+            break
+          default:
+            message.value = '伺服器錯誤，請稍後再試'
+        }
+
+        status.value = 'error'
+      }
     })
 }
 </script>
@@ -117,10 +151,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
             class="mb-4"
           />
           <UAuthForm
-            :schema="schema"
+            ref="form"
             title="Login"
             :fields="fields"
             :providers="providers"
+            :schema="schema"
             @submit="onSubmit"
           />
           <UAlert
