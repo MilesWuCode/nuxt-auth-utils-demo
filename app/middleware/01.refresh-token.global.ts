@@ -16,9 +16,13 @@ export default defineNuxtRouteMiddleware(async () => {
     return
   }
 
+  const { session, clear, fetch } = useUserSession()
+
+  // Ignore if no tokens
+  if (!session.value?.token) return
+
   // SSR進入頁面時執行 & CSR路由換頁時執行
 
-  const { session, clear, fetch } = useUserSession()
   const serverEvent = useRequestEvent()
   const runtimeConfig = useRuntimeConfig()
 
