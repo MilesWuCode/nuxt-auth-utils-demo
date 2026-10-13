@@ -39,7 +39,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         color: 'success',
       })
 
-      authBroadcastChannel.postMessage({ action: 'fetch-user' })
+      authBroadcastChannel.postMessage({ action: 'fetch' })
     })
     .catch((err) => {
       console.log(err)

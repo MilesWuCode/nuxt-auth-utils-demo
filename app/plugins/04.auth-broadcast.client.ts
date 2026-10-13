@@ -20,10 +20,7 @@ export default defineNuxtPlugin(() => {
       case 'logout':
         if (loggedIn.value === true) reloadNuxtApp({ force: true })
         break
-      case 'fetch-auth':
-        await fetch()
-        break
-      case 'fetch-user':
+      case 'fetch':
         await $fetch('/api/me')
         await fetch()
         break
