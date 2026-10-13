@@ -26,3 +26,6 @@ logs
 # AI
 .agents
 .claude
+.mcp.json
+
+.vscode
