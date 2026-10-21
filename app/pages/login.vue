@@ -16,17 +16,11 @@ const { fetch } = useUserSession()
 const authBroadcastChannel = useAuthBroadcastChannel()
 
 // flash message
-const authErrorCookie = useCookie('authError')
-const oauthErrorCode = authErrorCookie.value
+const oauthErrorCookie = useCookie('OAuthError')
 
 const message = ref('')
 const form = useTemplateRef('form')
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
-
-// 要等 hydration 完成再清，不然 SSR 輸出跟 client 首次渲染的內容對不上，會出現 hydration mismatch
-onMounted(() => {
-  authErrorCookie.value = null
-})
 
 const fields: AuthFormField[] = [
   {
@@ -143,11 +137,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
       <div class="flex justify-center">
         <UPageCard class="w-full max-w-md">
           <UAlert
-            v-if="oauthErrorCode === 'error-0001'"
+            v-if="oauthErrorCookie"
             color="error"
             variant="subtle"
             title="錯誤"
-            description="登入元件發生錯誤，請稍後再試"
+            :description="oauthErrorCookie"
             class="mb-4"
           />
           <UAuthForm

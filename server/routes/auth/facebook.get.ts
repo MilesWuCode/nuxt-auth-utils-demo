@@ -32,7 +32,7 @@ export default defineOAuthFacebookEventHandler({
     console.error('Facebook OAuth error:', error)
 
     // flash message
-    setCookie(event, 'authError', 'error-0001', {
+    setCookie(event, 'OAuthError', 'Facebook 登入失敗', {
       maxAge: 10,
       path: '/',
     })

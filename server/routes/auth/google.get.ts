@@ -38,7 +38,7 @@ export default defineOAuthGoogleEventHandler({
     console.error('Google OAuth error:', error)
 
     // flash message
-    setCookie(event, 'authError', 'error-0001', {
+    setCookie(event, 'OAuthError', 'Google 登入失敗', {
       maxAge: 10,
       path: '/',
     })

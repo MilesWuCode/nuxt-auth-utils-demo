@@ -32,7 +32,7 @@ export default defineOAuthAppleEventHandler({
     console.error('Apple OAuth error:', error)
 
     // flash message
-    setCookie(event, 'authError', 'error-0001', {
+    setCookie(event, 'OAuthError', 'Apple 登入失敗', {
       maxAge: 10,
       path: '/',
     })
