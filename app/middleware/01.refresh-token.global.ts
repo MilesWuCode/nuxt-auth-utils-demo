@@ -3,88 +3,67 @@ import { parse, parseSetCookie, serialize } from 'cookie-es'
 import { appendResponseHeader } from 'h3'
 
 export default defineNuxtRouteMiddleware(async () => {
-  // console.log('Route Middleware 01.refresh-token.global.ts')
-
   const nuxtApp = useNuxtApp()
-
   // Don't run on client hydration when server rendered
   if (
     import.meta.client &&
     nuxtApp.isHydrating &&
     nuxtApp.payload.serverRendered
-  ) {
+  )
     return
-  }
 
-  const { session, clear, fetch } = useUserSession()
-
+  const { session, clear: clearSession, fetch: fetchSession } = useUserSession()
   // Ignore if no tokens
   if (!session.value?.token) return
 
-  // SSR進入頁面時執行 & CSR路由換頁時執行
-
   const serverEvent = useRequestEvent()
-  const runtimeConfig = useRuntimeConfig()
+  // Same cookie name as the module: `nuxt-session` is reserved for `useSession()` from `nuxt/server`
+  const configuredName = useRuntimeConfig().session?.name
+  const sessionName =
+    configuredName && configuredName !== 'nuxt-session'
+      ? configuredName
+      : 'nuxt-auth-session'
+  const { accessTokenExpiredAt, refreshTokenExpiredAt } = session.value.token
 
-  if (
-    // 檢查accessToken和refreshToken都過期
-    session.value?.token &&
-    isExpired(session.value.token.accessTokenExpiredAt) &&
-    isExpired(session.value.token.refreshTokenExpiredAt)
-  ) {
-    // 直接登出
-    await clear()
+  // Both tokens expired, clearing session
+  if (isExpired(accessTokenExpiredAt) && isExpired(refreshTokenExpiredAt)) {
+    console.info('both tokens expired, clearing session')
+    await clearSession()
+    // return navigateTo('/login')
   }
-
-  if (
-    // 檢查accessToken過期，refreshToken未過期
-    session.value?.token &&
-    isExpired(session.value.token.accessTokenExpiredAt) &&
-    !isExpired(session.value.token.refreshTokenExpiredAt)
-  ) {
-    console.info('1.accessToken過期,refreshToken未過期')
-
+  // Access token expired, refreshing
+  else if (isExpired(accessTokenExpiredAt)) {
+    console.info('access token expired, refreshing')
     try {
-      // refresh token
       await useRequestFetch()('/api/refreshToken', {
         method: 'POST',
         onResponse({ response: { headers } }) {
-          // Forward the Set-Cookie header to the main server event
+          // Forward the Set-Cookie header to the main server event (h3 v1: event.node.req / event.node.res)
           if (import.meta.server && serverEvent) {
             for (const setCookie of headers.getSetCookie()) {
-              appendResponseHeader(serverEvent, 'Set-Cookie', setCookie)
-              // Update session cookie for next fetch requests
-              const parseCookie = parseSetCookie(setCookie)
-              const name = parseCookie?.name
-              const value = parseCookie?.value
-
-              if (name && value && name === runtimeConfig.session.name) {
-                // console.log('updating headers.cookie to', value)
-                const cookies = parse(serverEvent.headers.get('cookie') || '')
-                // set or overwrite existing cookie
-                cookies[name] = value
-                // update cookie event header for future requests
-                serverEvent.headers.set(
-                  'cookie',
-                  Object.entries(cookies)
-                    .map(([name, value]) => serialize(name, value))
-                    .join('; '),
-                )
-                // Also apply to serverEvent.node.req.headers
-                if (serverEvent.node?.req?.headers) {
-                  serverEvent.node.req.headers['cookie'] =
-                    serverEvent.headers.get('cookie') || ''
-                }
-              }
+              appendResponseHeader(serverEvent, 'set-cookie', setCookie)
+              // Update the session cookie of the request, for the next fetch requests
+              const { name, value } = parseSetCookie(setCookie)
+              if (name !== sessionName) continue
+              const cookies = parse(serverEvent.headers.get('cookie') || '')
+              // set or overwrite existing cookie
+              cookies[name] = value
+              const cookie = Object.entries(cookies)
+                .map(([name, value]) => serialize(name, value))
+                .join('; ')
+              // event.headers is a cached copy of node req headers, update both
+              serverEvent.headers.set('cookie', cookie)
+              serverEvent.node.req.headers.cookie = cookie
             }
           }
         },
       })
     } catch {
-      await clear()
+      // refresh failed, log out
+      await clearSession()
+      return
     }
-
     // refresh the session
-    await fetch()
+    await fetchSession()
   }
 })
