@@ -7,6 +7,7 @@ export default defineOAuthAppleEventHandler({
 
     console.log(user)
     console.log(tokens.id_token)
+    const { secure, tokenExpiredAt } = await createTokens(user.email!)
 
     await setUserSession(event, {
       user: {
@@ -15,8 +16,9 @@ export default defineOAuthAppleEventHandler({
         email: user.email!,
         fetched_at: Date.now(),
       },
-      token: await createTokens(user.email!),
       loggedInAt: Date.now(),
+      secure: secure,
+      tokenExpiredAt: tokenExpiredAt,
     })
 
     // 通知其他分頁登入狀態變了，由 app/plugins/05.auth-cookie.client.ts 監看後 reloadNuxtApp

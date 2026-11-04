@@ -3,13 +3,11 @@ import { jwtVerify, errors } from 'jose'
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
+  const refreshToken = session.secure?.refreshToken
+  const refreshTokenExpiredAt = session.tokenExpiredAt?.refreshTokenExpiredAt
 
-  if (
-    // 沒有token / 沒有refreshToken / refreshToken已過期
-    !session.token ||
-    !session.token.refreshToken ||
-    isExpired(session.token.refreshTokenExpiredAt)
-  ) {
+  // 沒有refreshToken / refreshToken已過期
+  if (!refreshToken || isExpired(refreshTokenExpiredAt)) {
     throw createError({
       status: 401,
       message: 'Unauthorized',
@@ -23,7 +21,7 @@ export default defineEventHandler(async (event) => {
   let sub: string | undefined
 
   try {
-    const { payload } = await jwtVerify(session.token.refreshToken, secret)
+    const { payload } = await jwtVerify(refreshToken, secret)
 
     sub = payload.sub
   } catch (err) {
@@ -44,18 +42,19 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  if (
-    // token沒有sub
-    !sub
-  ) {
+  // token沒有sub
+  if (!sub) {
     throw createError({ status: 401, message: 'Invalid token' })
   }
 
+  const { secure, tokenExpiredAt } = await createTokens(sub)
+
+  // 不要展開...session(裡面還混了session.id，不該寫回session data)
   await setUserSession(event, {
-    // 不要展開...session(裡面還混了session.id，不該寫回session data)
     user: session.user,
     loggedInAt: session.loggedInAt,
-    token: await createTokens(sub),
+    secure: secure,
+    tokenExpiredAt: tokenExpiredAt,
   })
 
   console.log('refreshToken')

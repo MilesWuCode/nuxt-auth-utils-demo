@@ -4,13 +4,19 @@
 export function useAuthFetchOptions() {
   return {
     async onRequest() {
+      // SSR的刷新交給 middleware/01.refresh-token.global.ts
+      // server端的全域$fetch不會帶使用者cookie,在這裡刷新一定失敗,還會因為catch裡的clear()把使用者登出
+      if (import.meta.server) return
+
       const { session, fetch, clear } = useUserSession()
 
+      const { accessTokenExpiredAt, refreshTokenExpiredAt } =
+        session.value?.tokenExpiredAt ?? {}
+
       if (
-        // 有token、accessToken過期、refreshToken未過期才刷新
-        session.value?.token &&
-        isExpired(session.value.token.accessTokenExpiredAt) &&
-        !isExpired(session.value.token.refreshTokenExpiredAt)
+        // accessToken過期、refreshToken未過期才刷新
+        isExpired(accessTokenExpiredAt) &&
+        !isExpired(refreshTokenExpiredAt)
       ) {
         try {
           await $fetch('/api/refreshToken', { method: 'POST' })

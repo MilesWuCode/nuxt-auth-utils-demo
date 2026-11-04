@@ -20,9 +20,13 @@ export async function createTokens(sub: string) {
     .sign(secret)
 
   return {
-    accessToken,
-    accessTokenExpiredAt: getExpiredAt(10),
-    refreshToken,
-    refreshTokenExpiredAt: getExpiredAt(86400),
+    secure: {
+      accessToken,
+      refreshToken,
+    },
+    tokenExpiredAt: {
+      accessTokenExpiredAt: getExpiredAt(10),
+      refreshTokenExpiredAt: getExpiredAt(86400),
+    },
   }
 }

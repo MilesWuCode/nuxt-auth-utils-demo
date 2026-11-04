@@ -24,10 +24,13 @@ export default defineEventHandler(async (event) => {
     fetched_at: Date.now(),
   }
 
+  const { secure, tokenExpiredAt } = await createTokens(user.id)
+
   await setUserSession(event, {
     user: user,
-    token: await createTokens(user.id),
     loggedInAt: Date.now(),
+    secure: secure,
+    tokenExpiredAt: tokenExpiredAt,
   })
 
   setResponseStatus(event, 201)

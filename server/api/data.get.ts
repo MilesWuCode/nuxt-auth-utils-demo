@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
   if (
     // 沒有token 或 accessToken過期
-    isExpired(session.token?.accessTokenExpiredAt)
+    isExpired(session.tokenExpiredAt?.accessTokenExpiredAt)
   ) {
     throw createError({
       status: 401,

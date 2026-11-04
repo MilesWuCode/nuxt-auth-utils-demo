@@ -14,6 +14,8 @@ export default defineOAuthGoogleEventHandler({
     console.log(tokens.access_token)
     console.log(tokens.id_token)
 
+    const { secure, tokenExpiredAt } = await createTokens(user.sub)
+
     await setUserSession(event, {
       user: {
         id: user.sub,
@@ -21,8 +23,9 @@ export default defineOAuthGoogleEventHandler({
         email: user.email,
         fetched_at: Date.now(),
       },
-      token: await createTokens(user.sub),
       loggedInAt: Date.now(),
+      secure: secure,
+      tokenExpiredAt: tokenExpiredAt,
     })
 
     // 因為cookie是全域的，由 app/plugins/05.auth-cookie.client.ts 監看後Broadcast通知所有分頁

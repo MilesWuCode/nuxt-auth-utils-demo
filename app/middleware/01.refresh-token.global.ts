@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async () => {
 
   const { session, clear: clearSession, fetch: fetchSession } = useUserSession()
   // Ignore if no tokens
-  if (!session.value?.token) return
+  if (!session.value?.tokenExpiredAt) return
 
   const serverEvent = useRequestEvent()
   // Same cookie name as the module: `nuxt-session` is reserved for `useSession()` from `nuxt/server`
@@ -22,7 +22,8 @@ export default defineNuxtRouteMiddleware(async () => {
     configuredName && configuredName !== 'nuxt-session'
       ? configuredName
       : 'nuxt-auth-session'
-  const { accessTokenExpiredAt, refreshTokenExpiredAt } = session.value.token
+  const { accessTokenExpiredAt, refreshTokenExpiredAt } =
+    session.value.tokenExpiredAt
 
   // Both tokens expired, clearing session
   if (isExpired(accessTokenExpiredAt) && isExpired(refreshTokenExpiredAt)) {

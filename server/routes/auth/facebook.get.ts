@@ -8,15 +8,18 @@ export default defineOAuthFacebookEventHandler({
     console.log(user)
     console.log(tokens.access_token)
 
+    const { secure, tokenExpiredAt } = await createTokens(user.sub)
+
     await setUserSession(event, {
       user: {
-        id: user.id,
+        id: user.sub,
         name: user.name,
         email: user.email,
         fetched_at: Date.now(),
       },
-      token: await createTokens(user.id),
       loggedInAt: Date.now(),
+      secure: secure,
+      tokenExpiredAt: tokenExpiredAt,
     })
 
     // 通知其他分頁登入狀態變了，由 app/plugins/05.auth-cookie.client.ts 監看後 reloadNuxtApp
