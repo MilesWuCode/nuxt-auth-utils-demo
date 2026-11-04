@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from 'h3'
+import { sendRedirect, getCookie, setCookie } from 'nuxt/server'
 
 export default defineOAuthFacebookEventHandler({
   async onSuccess(event, { user, tokens }) {

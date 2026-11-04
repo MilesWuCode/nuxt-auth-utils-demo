@@ -14,17 +14,18 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
 
-  // wip
+  // nuxt-layers
   // extends: ['../nuxt-audio'],
 
   runtimeConfig: {
     // nuxt-auth-utils
     session: {
-      password: process.env.NUXT_SESSION_PASSWORD as string,
+      // name: process.env.NUXT_SESSION_NAME, //sso
       maxAge: 1 * 86400, // 建議和 refreshToken 一樣長的時間
+      // cookie: {
+      //   domain: process.env.NUXT_SESSION_COOKIE_DOMAIN, // sso
+      // },
     },
-    // JWT
-    jwtSecret: process.env.NUXT_JWT_SECRET,
     // nuxt-auth-utils
     oauth: {
       apple: {
@@ -45,6 +46,11 @@ export default defineNuxtConfig({
         redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL,
       },
     },
+    public: {
+      //
+    },
+    appSecret: process.env.NUXT_APP_SECRET,
+    jwtSecret: process.env.NUXT_JWT_SECRET,
   },
 
   css: ['~/assets/css/main.css'],

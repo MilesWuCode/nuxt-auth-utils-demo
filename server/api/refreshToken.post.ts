@@ -12,11 +12,11 @@ export default defineEventHandler(async (event) => {
   ) {
     throw createError({
       status: 401,
-      message: 'Invalid credentials',
+      message: 'Unauthorized',
     })
   }
 
-  const { jwtSecret } = useRuntimeConfig()
+  const { jwtSecret } = useRuntimeConfig(event)
 
   const secret = new TextEncoder().encode(jwtSecret)
 
@@ -29,18 +29,18 @@ export default defineEventHandler(async (event) => {
   } catch (err) {
     switch (true) {
       case err instanceof errors.JWTExpired:
-        throw createError({ status: 401, statusText: 'JWT Expired' })
+        throw createError({ status: 401, message: 'JWT Expired' })
       case err instanceof errors.JWTInvalid:
-        throw createError({ status: 401, statusText: 'JWT Invalid' })
+        throw createError({ status: 401, message: 'JWT Invalid' })
       case err instanceof errors.JWSInvalid:
-        throw createError({ status: 401, statusText: 'JWS Invalid' })
+        throw createError({ status: 401, message: 'JWS Invalid' })
       case err instanceof errors.JWSSignatureVerificationFailed:
         throw createError({
           status: 401,
-          statusText: 'JWS Signature Verification Failed',
+          message: 'JWS Signature Verification Failed',
         })
       default:
-        throw createError({ status: 500, statusText: 'Auth Error' })
+        throw createError({ status: 500, message: 'Auth Error' })
     }
   }
 
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     // token沒有sub
     !sub
   ) {
-    throw createError({ status: 401, statusText: 'Invalid token' })
+    throw createError({ status: 401, message: 'Invalid token' })
   }
 
   await setUserSession(event, {

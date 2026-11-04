@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   ) {
     throw createError({
       status: 401,
-      statusText: 'Invalid credentials',
+      message: 'Unauthorized',
     })
   }
 
