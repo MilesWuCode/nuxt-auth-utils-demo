@@ -1,0 +1,30 @@
+<script setup lang="ts">
+const uid = useId()
+
+const { data, refresh } = await useFetch('/api/data', {
+  key: uid,
+})
+</script>
+
+<template>
+  <UCard>
+    <template #header>
+      <div class="flex justify-between">
+        Random User
+        <UButton
+          color="primary"
+          variant="outline"
+          size="xs"
+          @click="() => refresh()"
+        >
+          Refresh
+        </UButton>
+      </div>
+    </template>
+    <div class="flex flex-col gap-4">
+      <template v-for="item in data" :key="item.id">
+        <UUser :name="item?.name" :description="item?.email" />
+      </template>
+    </div>
+  </UCard>
+</template>

@@ -21,7 +21,7 @@ useSeoMeta({
 
       <UserData />
 
-      <RandomData v-for="i of 3" :key="i" />
+      <RandomDataCustom v-for="i of 3" :key="i" />
     </UPageBody>
   </div>
 </template>
