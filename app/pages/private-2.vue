@@ -10,7 +10,7 @@ useSeoMeta({
 
 <template>
   <div>
-    <UPageHeader title="Private 2" />
+    <UPageHeader title="Private 2" description="useFetch" />
 
     <UPageBody>
       <div class="flex gap-2">

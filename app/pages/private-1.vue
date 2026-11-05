@@ -10,7 +10,7 @@ useSeoMeta({
 
 <template>
   <div>
-    <UPageHeader title="Private 1" />
+    <UPageHeader title="Private 1" description="useApi" />
 
     <UPageBody>
       <div class="flex gap-2">
