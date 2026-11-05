@@ -21,7 +21,7 @@
     "@vueuse/nuxt": "^15.0.0",
     "@vueuse/router": "^15.0.0",
     "nuxt": "^4.6.4",
-    "nuxt-auth-utils": "^0.6.0",
+    "nuxt-auth-utils": "^0.6.1",
     "tailwindcss": "^4.3.4",
     "vue": "^3.5.44",
     "vue-router": "^5.4.0",

@@ -27,13 +27,13 @@ export default defineNuxtRouteMiddleware(async () => {
 
   // Both tokens expired, clearing session
   if (isExpired(accessTokenExpiredAt) && isExpired(refreshTokenExpiredAt)) {
-    console.info('both tokens expired, clearing session')
+    // console.info('both tokens expired, clearing session')
     await clearSession()
     // return navigateTo('/login')
   }
   // Access token expired, refreshing
   else if (isExpired(accessTokenExpiredAt)) {
-    console.info('access token expired, refreshing')
+    // console.info('access token expired, refreshing')
     try {
       await useRequestFetch()('/api/refreshToken', {
         method: 'POST',
