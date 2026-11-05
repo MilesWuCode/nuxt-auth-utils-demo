@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async () => {
 
   const { session, clear: clearSession, fetch: fetchSession } = useUserSession()
   // Ignore if no tokens
-  if (!session.value?.secure && !session.value?.tokenExpiredAt) return
+  if (!session.value?.tokenExpiredAt) return
 
   const serverEvent = useRequestEvent()
   // Same cookie name as the module: `nuxt-session` is reserved for `useSession()` from `nuxt/server`
