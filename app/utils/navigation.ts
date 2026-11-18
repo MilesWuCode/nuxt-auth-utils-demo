@@ -56,6 +56,18 @@ export const siteNavigation = {
           },
         ],
       },
+      {
+        label: 'Utils',
+        icon: 'i-lucide-box',
+        defaultOpen: true,
+        children: [
+          {
+            label: 'Image Cropper',
+            icon: 'i-lucide-house',
+            to: '/image-cropper',
+          },
+        ],
+      },
     ],
   ],
 }

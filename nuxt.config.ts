@@ -15,7 +15,10 @@ export default defineNuxtConfig({
   ],
 
   // nuxt-layers
-  // extends: ['../nuxt-audio'],
+  extends: [
+    '~~/layers/image-cropper',
+    // '../nuxt-audio'
+  ],
 
   runtimeConfig: {
     // nuxt-auth-utils
