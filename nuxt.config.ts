@@ -67,7 +67,7 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      include: ['@vue/devtools-core', '@vue/devtools-kit', 'zod'],
+      include: ['@vue/devtools-core', '@vue/devtools-kit', 'cropperjs', 'zod'],
     },
     plugins: [tailwindcss()],
   },
